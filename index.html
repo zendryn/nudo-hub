@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nudo Hub</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #2f3a2f;
+    --border: #e3e0d8;
+    --radius: 16px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 28px 20px 20px;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  header p {
+    margin-top: 6px;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+  .section-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--muted);
+    margin: 24px 0 10px;
+  }
+  .card-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  a.card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 18px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.08s ease, box-shadow 0.15s ease;
+  }
+  a.card:active {
+    transform: scale(0.98);
+  }
+  .icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+  .icon-doc { background: #eef1fb; }
+  .icon-form { background: #e6f6ec; }
+  .icon-sheet { background: #e9f4ef; }
+  .card .text { flex: 1; }
+  .card .title { font-size: 1.05rem; font-weight: 600; }
+  .card .sub { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+  .card .arrow { color: var(--muted); font-size: 1.3rem; }
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Nudo Hub</h1>
+    <p>Acceso rápido del equipo</p>
+  </header>
+
+  <div class="wrap">
+    <div class="section-title">Documentos</div>
+    <div class="card-list">
+      <a class="card" href="https://docs.google.com/document/d/1VRh9s-lpLsztOxuLTa2psyPQJFZm4amg2fF8JkGqrFY/edit">
+        <div class="icon icon-doc">📄</div>
+        <div class="text">
+          <div class="title">Reglas y Políticas de Nudo</div>
+          <div class="sub">Manual del equipo</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+      <a class="card" href="https://docs.google.com/document/d/1CXckVtq5CURpSZxPoXk3Cis57w5nanQmkqCFHST4BZQ/edit">
+        <div class="icon icon-doc">📘</div>
+        <div class="text">
+          <div class="title">Guía Operativa</div>
+          <div class="sub">Referencia operativa</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+    </div>
+
+    <div class="section-title">Formularios</div>
+    <div class="card-list">
+      <a class="card" href="https://docs.google.com/forms/d/e/1FAIpQLSdaosXElsLgAhZcqX2it7GdvuP1H6rvxBb18O9GSgNBpYFmxA/viewform">
+        <div class="icon icon-form">🗓️</div>
+        <div class="text">
+          <div class="title">Preferencia de Descansos</div>
+          <div class="sub">Envía tus días de descanso</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+    </div>
+
+    <div class="section-title">Inventario</div>
+    <div class="card-list">
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1OD_qE8UsddyDPm4JP34NxmIvPmLy_5tofFGDxUvC4e4/edit">
+        <div class="icon icon-sheet">📊</div>
+        <div class="text">
+          <div class="title">Inventario</div>
+          <div class="sub">Cada primer y tercer martes</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+    </div>
+  </div>
+
+  <footer>Nudo — Ramen y Boba · CDMX</footer>
+</body>
+</html>
