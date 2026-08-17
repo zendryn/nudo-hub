@@ -286,8 +286,8 @@ En conjunto, NUDO ofrece una experiencia honesta y agradable, donde la calidad d
         slides[i].classList.add('active'); dots[i].classList.add('active');
       }
       dots.forEach(function(d,k){ d.addEventListener('click',function(){ go(k); reset(); }); });
-      var timer=setInterval(function(){ go(i+1); },6000);
-      function reset(){ clearInterval(timer); timer=setInterval(function(){ go(i+1); },6000); }
+      var timer=setInterval(function(){ go(i+1); },15000);
+      function reset(){ clearInterval(timer); timer=setInterval(function(){ go(i+1); },15000); }
     })();
     </script>
     <!-- NUDO_REVIEWS_END -->
