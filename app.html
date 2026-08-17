@@ -111,7 +111,19 @@
   /* Form page */
   .form-page { display: none; }
   .form-page.active { display: block; }
-  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); background: none; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
+  .back {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; box-sizing: border-box;
+    padding: 14px 16px; margin: 0 0 12px 0;
+    background: var(--card); color: var(--accent);
+    border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    text-align: left;
+  }
+  .back .chev { font-size: 1.1rem; line-height: 1; }
+  .back:active { opacity: 0.7; }
   .form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
   .form-card h2 { font-size: 1.2rem; margin-bottom: 16px; }
   .radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -238,7 +250,7 @@
 
       <!-- GUIDE VIEW (in-app, so back stays inside the app) -->
       <div id="form-guide" class="form-page">
-        <button class="back" data-guide-back>‹ Volver</button>
+        <button class="back" data-guide-back><span class="chev">‹</span> Volver</button>
         <div class="form-card">
           <iframe class="guide-frame" id="guide-frame" src="about:blank"></iframe>
         </div>
@@ -246,7 +258,7 @@
 
       <!-- FORM PAGES -->
       <div id="form-bitacora" class="form-page">
-        <button class="back" data-back>‹ Volver</button>
+        <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card" id="card-bitacora">
           <h2>📓 Bitácora de Cierre</h2>
           <div class="field"><label>Sucursal</label>
@@ -285,7 +297,7 @@
       </div>
 
       <div id="form-mantenimiento" class="form-page">
-        <button class="back" data-back>‹ Volver</button>
+        <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card" id="card-mantenimiento">
           <h2>🔧 Solicitud de Mantenimiento</h2>
           <div class="field"><label>Sucursal</label>
@@ -312,7 +324,7 @@
       </div>
 
       <div id="form-compras" class="form-page">
-        <button class="back" data-back>‹ Volver</button>
+        <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card" id="card-compras">
           <h2>🛒 Solicitud de Compras</h2>
           <div class="field"><label>Sucursal</label>
@@ -331,7 +343,7 @@
       </div>
 
       <div id="form-buzon" class="form-page">
-        <button class="back" data-back>‹ Volver</button>
+        <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card" id="card-buzon">
           <h2>💬 Buzón de Sugerencias</h2>
           <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Anónimo y opcional. Usamos un formulario de Google para que tu opinión no quede ligada a tu cuenta.</p>
@@ -341,7 +353,7 @@
       </div>
 
       <div id="form-horario" class="form-page">
-        <button class="back" data-back>‹ Volver</button>
+        <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card">
           <h2>🗓️ Mi horario</h2>
           <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">El horario de la semana se publica aquí.</p>
@@ -361,7 +373,7 @@
   function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
-  const APP_VERSION = "v0.6";
+  const APP_VERSION = "v0.7";
   document.getElementById('ver').textContent = APP_VERSION;
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
