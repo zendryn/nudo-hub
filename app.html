@@ -127,6 +127,15 @@
   .checkbox-row input { width: 22px; height: 22px; }
   .link-btn { background: none; border: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 6px 0; }
   .link-btn:active { opacity: 0.7; }
+  .field-hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  input[type="file"] { padding: 10px; font-size: 0.9rem; }
+  .photo-preview { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .photo-preview img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
+  .photo-preview .ph-remove { position: relative; }
+  .photo-preview .ph-x { position: absolute; top: -6px; right: -6px; background: var(--red); color: #fff; width: 20px; height: 20px; border-radius: 50%; border: none; font-size: 0.75rem; line-height: 20px; text-align: center; cursor: pointer; }
+
+  /* In-app guide view */
+  .guide-frame { width: 100%; border: 1px solid var(--border); border-radius: 12px; min-height: 70vh; background: #fff; }
 
   /* Schedule */
   .sched-frame { width: 100%; border: 1px solid var(--border); border-radius: 12px; min-height: 400px; background: #fff; }
@@ -209,21 +218,29 @@
 
         <div class="section-title">Guía</div>
         <div class="card-list">
-          <a class="card" href="/nudo-hub/reglas.html">
+          <a class="card" href="#" data-guide="/nudo-hub/reglas.html">
             <div class="icon icon-doc">📄</div>
             <div class="text"><div class="title">Reglas y Políticas</div><div class="sub">Manual del equipo</div></div>
             <div class="arrow">›</div>
           </a>
-          <a class="card" href="/nudo-hub/guia.html">
+          <a class="card" href="#" data-guide="/nudo-hub/guia.html">
             <div class="icon icon-doc">📘</div>
             <div class="text"><div class="title">Guía Operativa</div><div class="sub">Referencia operativa</div></div>
             <div class="arrow">›</div>
           </a>
-          <a class="card" href="/nudo-hub/contactos.html">
+          <a class="card" href="#" data-guide="/nudo-hub/contactos.html">
             <div class="icon icon-sheet">📞</div>
             <div class="text"><div class="title">Contactos de servicios</div><div class="sub">Electricista, plomero y más</div></div>
             <div class="arrow">›</div>
           </a>
+        </div>
+      </div>
+
+      <!-- GUIDE VIEW (in-app, so back stays inside the app) -->
+      <div id="form-guide" class="form-page">
+        <button class="back" data-guide-back>‹ Volver</button>
+        <div class="form-card">
+          <iframe class="guide-frame" id="guide-frame" src="about:blank"></iframe>
         </div>
       </div>
 
@@ -233,7 +250,7 @@
         <div class="form-card" id="card-bitacora">
           <h2>📓 Bitácora de Cierre</h2>
           <div class="field"><label>Sucursal</label>
-            <select id="b-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
+            <select id="b-sucursal"><option>Roma Norte</option><option>Del Valle</option><option>Bodega</option></select>
           </div>
           <div class="field"><label>Corte general</label>
             <div class="radio-group">
@@ -272,12 +289,17 @@
         <div class="form-card" id="card-mantenimiento">
           <h2>🔧 Solicitud de Mantenimiento</h2>
           <div class="field"><label>Sucursal</label>
-            <select id="m-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
+            <select id="m-sucursal"><option>Roma Norte</option><option>Del Valle</option><option>Bodega</option></select>
           </div>
           <div class="field"><label>Área</label>
             <select id="m-area"><option>Cocina</option><option>Barra</option><option>Comedor</option><option>Terraza</option><option>Baños</option><option>Otro</option></select>
           </div>
           <div class="field"><label>¿Qué se dañó?</label><textarea id="m-desc" placeholder="Describe el problema"></textarea></div>
+          <div class="field"><label>📷 Fotos del problema</label>
+            <p class="field-hint">Toma una o más fotos de la cámara. (Hasta 4)</p>
+            <input type="file" id="m-photos" accept="image/*" capture="environment" multiple>
+            <div class="photo-preview" id="m-photo-preview"></div>
+          </div>
           <div class="field"><label>Prioridad</label>
             <div class="radio-group">
               <label><input type="radio" name="m-prio" value="Normal"><span>Normal</span></label>
@@ -294,10 +316,14 @@
         <div class="form-card" id="card-compras">
           <h2>🛒 Solicitud de Compras</h2>
           <div class="field"><label>Sucursal</label>
-            <select id="c-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
+            <select id="c-sucursal"><option>Roma Norte</option><option>Del Valle</option><option>Bodega</option></select>
           </div>
           <div class="field"><label>¿Qué necesitas?</label><textarea id="c-item" placeholder="Describe el artículo o insumo"></textarea></div>
           <div class="field"><label>Proveedor (si lo sabes)</label><input type="text" id="c-vendor"></div>
+          <div class="field"><label>🔗 Link del producto (Amazon o MercadoLibre)</label>
+            <input type="url" id="c-link" placeholder="https://www.amazon.com.mx/... o https://articulo.mercadolibre.com.mx/...">
+            <p class="field-hint">Pega aquí el enlace directo del producto que necesitas. En MercadoLibre, elige vendedores <b>nacionales</b> (no internacionales) para evitar demoras.</p>
+          </div>
           <div class="field"><label>Monto estimado (MXN)</label><input type="number" id="c-amount" inputmode="numeric"></div>
           <button class="btn" id="c-submit">Enviar solicitud</button>
           <div class="msg hidden" id="c-msg"></div>
@@ -308,13 +334,9 @@
         <button class="back" data-back>‹ Volver</button>
         <div class="form-card" id="card-buzon">
           <h2>💬 Buzón de Sugerencias</h2>
-          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Anónimo y opcional. Dinos tu opinión — los hicimos para ti.</p>
-          <div class="field"><label>Tu mensaje</label><textarea id="z-msg" placeholder="Escribe aquí..."></textarea></div>
-          <div class="field"><label>Categoría</label>
-            <select id="z-cat"><option>General</option><option>Comida</option><option>Servicio</option><option>Instalaciones</option><option>Otro</option></select>
-          </div>
-          <button class="btn" id="z-submit">Enviar</button>
-          <div class="msg hidden" id="z-msg2"></div>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Anónimo y opcional. Usamos un formulario de Google para que tu opinión no quede ligada a tu cuenta.</p>
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdWxx8w4Mg2xEEhlISoRIXw9-TzxRVrVnsOFGtjGHe0c_QkzQ/viewform" target="_blank" rel="noopener" style="display:block;text-align:center;">Abrir Buzón de Sugerencias</a>
+          <p style="font-size:0.8rem;color:var(--muted);margin-top:10px;">Se abre en una pestaña nueva. Tu mensaje es completamente anónimo.</p>
         </div>
       </div>
 
@@ -339,7 +361,7 @@
   function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
-  const APP_VERSION = "v0.5";
+  const APP_VERSION = "v0.6";
   document.getElementById('ver').textContent = APP_VERSION;
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
@@ -445,12 +467,25 @@
     showLogin();
   });
 
+  let currentProfile = null; // {name, role}
+
   async function loadUser() {
     const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      // Label the test PIN user so Ben can tell he's in test mode
-      $('user-name').textContent = (user.email === 'test-pin@nudo.hub') ? 'Modo prueba' : (user.phone || 'Equipo');
-      $('header-sub').textContent = 'Bienvenido';
+    if (!user) return;
+    currentProfile = null;
+    // Look up the profile (name + role) for this user
+    const { data } = await supabase.from('profiles').select('name,role').eq('id', user.id).maybeSingle();
+    if (data && data.name) currentProfile = data;
+    const displayName = (currentProfile && currentProfile.name) || (user.email === 'test-pin@nudo.hub' ? 'Modo prueba' : (user.phone || 'Equipo'));
+    const role = (currentProfile && currentProfile.role) || '';
+    $('user-name').textContent = displayName + (role ? ' · ' + role : '');
+    $('header-sub').textContent = 'Bienvenido';
+    // Role-gate the Bitácora card: only Dueño, Capitán, Gerente see it
+    const allowed = ['Dueño', 'Capitán', 'Gerente'];
+    const bitCard = document.querySelector('[data-form="bitacora"]');
+    if (bitCard) {
+      if (allowed.includes(role)) { bitCard.style.display = ''; }
+      else { bitCard.style.display = 'none'; }
     }
   }
 
@@ -474,11 +509,13 @@
   function resetForm(cardId) {
     const card = $('card-' + cardId);
     if (!card) return;
-    card.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"], textarea').forEach(i => i.value = '');
+    card.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"], input[type="url"], textarea').forEach(i => i.value = '');
     card.querySelectorAll('input[type="checkbox"]').forEach(i => i.checked = false);
     card.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
     card.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
-    $('b-submit').disabled = $('m-submit').disabled = $('c-submit').disabled = $('z-submit').disabled = false;
+    // clear photo state
+    if (cardId === 'mantenimiento') { mPhotos.length = 0; renderPhotoPreview(); }
+    $('b-submit').disabled = $('m-submit').disabled = $('c-submit').disabled = false;
   }
 
   document.querySelectorAll('[data-form]').forEach(a => {
@@ -490,6 +527,20 @@
       $('form-' + f).classList.add('active');
       if (f === 'horario') loadSchedule();
     });
+  });
+  // Guide cards open an in-app iframe (back stays inside the app)
+  document.querySelectorAll('[data-guide]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const url = a.getAttribute('data-guide');
+      document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
+      $('home-view').style.display = 'none';
+      $('guide-frame').src = url;
+      $('form-guide').classList.add('active');
+    });
+  });
+  document.querySelectorAll('[data-guide-back]').forEach(b => {
+    b.addEventListener('click', () => { goHome(); });
   });
   document.querySelectorAll('[data-back]').forEach(b => {
     b.addEventListener('click', () => { goHome(); });
@@ -532,17 +583,62 @@
     }, 1200);
   });
 
-  // ---- MANTENIMIENTO ----
+  // ---- MANTENIMIENTO (with photo capture) ----
+  let mPhotos = []; // array of {file, dataUrl}
+
+  function renderPhotoPreview() {
+    const box = $('m-photo-preview');
+    if (!box) return;
+    box.innerHTML = '';
+    mPhotos.forEach((p, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'ph-remove';
+      const img = document.createElement('img');
+      img.src = p.dataUrl;
+      const x = document.createElement('button');
+      x.className = 'ph-x'; x.textContent = '✕'; x.setAttribute('aria-label', 'Quitar foto');
+      x.addEventListener('click', () => { mPhotos.splice(i, 1); renderPhotoPreview(); });
+      wrap.appendChild(img); wrap.appendChild(x);
+      box.appendChild(wrap);
+    });
+  }
+
+  const mPhotoInput = $('m-photos');
+  if (mPhotoInput) {
+    mPhotoInput.addEventListener('change', e => {
+      const files = Array.from(e.target.files || []);
+      const room = 4 - mPhotos.length;
+      files.slice(0, room).forEach(f => {
+        const reader = new FileReader();
+        reader.onload = ev => { mPhotos.push({ file: f, dataUrl: ev.target.result }); renderPhotoPreview(); };
+        reader.readAsDataURL(f);
+      });
+      if (files.length > room) showMsg($('m-msg'), 'Máximo 4 fotos.', 'info');
+      mPhotoInput.value = ''; // allow re-picking same file
+    });
+  }
+
   $('m-submit').addEventListener('click', async () => {
     if (!$('m-desc').value.trim()) { showMsg($('m-msg'), 'Describe el problema', 'err'); return; }
     let user; try { user = await requireUser(); } catch(e) { return; }
     $('m-submit').disabled = true;
+    showMsg($('m-msg'), 'Subiendo solicitud...', 'info');
+    // Upload photos to Supabase Storage first
+    const urls = [];
+    for (const p of mPhotos) {
+      const name = `maint-${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
+      // convert dataUrl to Blob
+      const blob = await (await fetch(p.dataUrl)).blob();
+      const { error: upErr } = await supabase.storage.from('maintenance-photos').upload(name, blob, { contentType: 'image/jpeg' });
+      if (!upErr) urls.push(supabase.storage.from('maintenance-photos').getPublicUrl(name).data.publicUrl);
+    }
     const { error } = await supabase.from('maintenance_requests').insert({
       submitted_by: user.id,
       branch: $('m-sucursal').value,
       area: $('m-area').value,
       description: $('m-desc').value,
-      priority: (document.querySelector('input[name="m-prio"]:checked') || {}).value || 'Normal'
+      priority: (document.querySelector('input[name="m-prio"]:checked') || {}).value || 'Normal',
+      photo_urls: urls
     });
     if (error) { showMsg($('m-msg'), 'Error: ' + error.message, 'err'); $('m-submit').disabled = false; return; }
     $('m-msg').textContent = '✅ Solicitud enviada'; $('m-msg').className = 'msg ok'; $('m-msg').classList.remove('hidden');
@@ -559,6 +655,7 @@
       branch: $('c-sucursal').value,
       item: $('c-item').value,
       vendor: $('c-vendor').value,
+      link: $('c-link').value.trim(),
       amount: $('c-amount').value ? parseFloat($('c-amount').value) : null
     });
     if (error) { showMsg($('c-msg'), 'Error: ' + error.message, 'err'); $('c-submit').disabled = false; return; }
@@ -567,17 +664,8 @@
   });
 
   // ---- BUZON ----
-  $('z-submit').addEventListener('click', async () => {
-    if (!$('z-msg').value.trim()) { showMsg($('z-msg2'), 'Escribe tu mensaje', 'err'); return; }
-    $('z-submit').disabled = true;
-    const { error } = await supabase.from('buzon').insert({
-      message: $('z-msg').value,
-      category: $('z-cat').value
-    });
-    if (error) { showMsg($('z-msg2'), 'Error: ' + error.message, 'err'); $('z-submit').disabled = false; return; }
-    $('z-msg2').textContent = '✅ ¡Gracias por tu opinión!'; $('z-msg2').className = 'msg ok'; $('z-msg2').classList.remove('hidden');
-    setTimeout(() => { resetForm('buzon'); clearMsg($('z-msg2')); goHome(); }, 1200);
-  });
+  // The buzón now opens the Google Form in a new tab (no in-app submit).
+  // (Removed the old z-submit handler — the form fields no longer exist.)
 
   // ---- INIT ----
   (async () => {
