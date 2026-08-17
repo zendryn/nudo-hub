@@ -125,6 +125,8 @@
   .radio-group label:has(input:checked) { border-color: var(--accent); background: #eef1fb; }
   .checkbox-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
   .checkbox-row input { width: 22px; height: 22px; }
+  .link-btn { background: none; border: none; color: var(--accent); font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 6px 0; }
+  .link-btn:active { opacity: 0.7; }
 
   /* Schedule */
   .sched-frame { width: 100%; border: 1px solid var(--border); border-radius: 12px; min-height: 400px; background: #fff; }
@@ -155,6 +157,10 @@
           <input type="text" id="code" inputmode="numeric" maxlength="6" placeholder="123456">
         </div>
         <button class="btn btn-secondary hidden" id="verify-code" style="margin-top:10px;">Entrar</button>
+        <div class="login-links hidden" id="login-links" style="display:flex;justify-content:space-between;margin-top:12px;">
+          <button class="link-btn" id="resend-code">↻ Reenviar código</button>
+          <button class="link-btn" id="change-phone">Cambiar número</button>
+        </div>
         <div class="msg hidden" id="login-msg"></div>
       </div>
     </div>
@@ -224,7 +230,7 @@
       <!-- FORM PAGES -->
       <div id="form-bitacora" class="form-page">
         <button class="back" data-back>‹ Volver</button>
-        <div class="form-card">
+        <div class="form-card" id="card-bitacora">
           <h2>📓 Bitácora de Cierre</h2>
           <div class="field"><label>Sucursal</label>
             <select id="b-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
@@ -263,7 +269,7 @@
 
       <div id="form-mantenimiento" class="form-page">
         <button class="back" data-back>‹ Volver</button>
-        <div class="form-card">
+        <div class="form-card" id="card-mantenimiento">
           <h2>🔧 Solicitud de Mantenimiento</h2>
           <div class="field"><label>Sucursal</label>
             <select id="m-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
@@ -285,7 +291,7 @@
 
       <div id="form-compras" class="form-page">
         <button class="back" data-back>‹ Volver</button>
-        <div class="form-card">
+        <div class="form-card" id="card-compras">
           <h2>🛒 Solicitud de Compras</h2>
           <div class="field"><label>Sucursal</label>
             <select id="c-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
@@ -300,7 +306,7 @@
 
       <div id="form-buzon" class="form-page">
         <button class="back" data-back>‹ Volver</button>
-        <div class="form-card">
+        <div class="form-card" id="card-buzon">
           <h2>💬 Buzón de Sugerencias</h2>
           <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Anónimo y opcional. Dinos tu opinión — los hicimos para ti.</p>
           <div class="field"><label>Tu mensaje</label><textarea id="z-msg" placeholder="Escribe aquí..."></textarea></div>
@@ -333,7 +339,7 @@
   function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
-  const APP_VERSION = "v0.4";
+  const APP_VERSION = "v0.5";
   document.getElementById('ver').textContent = APP_VERSION;
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
@@ -347,6 +353,32 @@
     el.textContent = text;
     el.className = 'msg ' + type;
     el.classList.remove('hidden');
+  }
+
+  function clearMsg(el) { el.classList.add('hidden'); el.textContent = ''; }
+
+  // Normalize a phone input to E.164 (+52...)
+  function toE164(raw) {
+    let p = raw.replace(/[^0-9]/g, '');
+    if (p.length === 10) p = '+52' + p;
+    else if (!p.startsWith('52')) p = '52' + p;
+    if (!p.startsWith('+')) p = '+' + p;
+    return p;
+  }
+
+  // Show/hide the OTP entry state (resend / change links appear with it)
+  function enterOtpState() {
+    $('code-field').classList.remove('hidden');
+    $('verify-code').classList.remove('hidden');
+    $('login-links').classList.remove('hidden');
+    $('send-code').classList.add('hidden');
+  }
+  function backToPhoneState() {
+    $('code-field').classList.add('hidden');
+    $('verify-code').classList.add('hidden');
+    $('login-links').classList.add('hidden');
+    $('send-code').classList.remove('hidden');
+    $('send-code').disabled = false;
   }
 
   // ---- LOGIN ----
@@ -366,28 +398,17 @@
       loadUser();
       return;
     }
-    const phone = raw;
-    // Normalize to E.164
-    let p = phone.replace(/[^0-9]/g, '');
-    if (p.length === 10) p = '+52' + p;
-    else if (!p.startsWith('52')) p = '52' + p;
-    if (!p.startsWith('+')) p = '+' + p;
+    const p = toE164(raw);
     $('send-code').disabled = true;
     showMsg($('login-msg'), 'Enviando código...', 'info');
     const { error } = await supabase.auth.signInWithOtp({ phone: p });
     if (error) { showMsg($('login-msg'), 'Error: ' + error.message, 'err'); $('send-code').disabled = false; return; }
-    $('code-field').classList.remove('hidden');
-    $('verify-code').classList.remove('hidden');
-    $('send-code').classList.add('hidden');
+    enterOtpState();
     showMsg($('login-msg'), 'Te enviamos un código. Escríbelo abajo.', 'ok');
   });
 
   $('verify-code').addEventListener('click', async () => {
-    const phone = $('phone').value.trim();
-    let p = phone.replace(/[^0-9]/g, '');
-    if (p.length === 10) p = '+52' + p;
-    else if (!p.startsWith('52')) p = '52' + p;
-    if (!p.startsWith('+')) p = '+' + p;
+    const p = toE164($('phone').value);
     const code = $('code').value.trim();
     if (!code) { showMsg($('login-msg'), 'Escribe el código', 'err'); return; }
     $('verify-code').disabled = true;
@@ -397,20 +418,69 @@
     loadUser();
   });
 
+  $('resend-code').addEventListener('click', async () => {
+    const p = toE164($('phone').value);
+    $('resend-code').disabled = true;
+    showMsg($('login-msg'), 'Reenviando código...', 'info');
+    const { error } = await supabase.auth.signInWithOtp({ phone: p });
+    $('resend-code').disabled = false;
+    if (error) { showMsg($('login-msg'), 'Error: ' + error.message, 'err'); return; }
+    showMsg($('login-msg'), 'Código reenviado. Revisa tu WhatsApp/SMS.', 'ok');
+  });
+
+  $('change-phone').addEventListener('click', () => {
+    backToPhoneState();
+    clearMsg($('login-msg'));
+    $('code').value = '';
+    $('phone').focus();
+  });
+
   $('logout').addEventListener('click', async () => {
     await supabase.auth.signOut();
+    // Reset login form so the next user starts clean
+    $('phone').value = '';
+    $('code').value = '';
+    backToPhoneState();
+    clearMsg($('login-msg'));
     showLogin();
   });
 
   async function loadUser() {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      $('user-name').textContent = user.phone || 'Equipo';
+      // Label the test PIN user so Ben can tell he's in test mode
+      $('user-name').textContent = (user.email === 'test-pin@nudo.hub') ? 'Modo prueba' : (user.phone || 'Equipo');
       $('header-sub').textContent = 'Bienvenido';
     }
   }
 
+  // Guard for expired/missing session on form submit
+  async function requireUser() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      showLogin();
+      showMsg($('login-msg'), 'Tu sesión terminó. Entra de nuevo.', 'err');
+      throw new Error('no-session');
+    }
+    return user;
+  }
+
   // ---- NAVIGATION ----
+  function goHome() {
+    document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
+    $('home-view').style.display = 'block';
+  }
+  // Reset a form card (div) to its initial state
+  function resetForm(cardId) {
+    const card = $('card-' + cardId);
+    if (!card) return;
+    card.querySelectorAll('input[type="text"], input[type="tel"], input[type="number"], textarea').forEach(i => i.value = '');
+    card.querySelectorAll('input[type="checkbox"]').forEach(i => i.checked = false);
+    card.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
+    card.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
+    $('b-submit').disabled = $('m-submit').disabled = $('c-submit').disabled = $('z-submit').disabled = false;
+  }
+
   document.querySelectorAll('[data-form]').forEach(a => {
     a.addEventListener('click', e => {
       e.preventDefault();
@@ -422,10 +492,7 @@
     });
   });
   document.querySelectorAll('[data-back]').forEach(b => {
-    b.addEventListener('click', () => {
-      document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
-      $('home-view').style.display = 'block';
-    });
+    b.addEventListener('click', () => { goHome(); });
   });
 
   // ---- SCHEDULE ----
@@ -441,7 +508,8 @@
     const afluencia = document.querySelector('input[name="b-afluencia"]:checked');
     if (!corte || !afluencia) { showMsg($('b-msg'), 'Selecciona corte y afluencia', 'err'); return; }
     if (!$('b-confirm').checked) { showMsg($('b-msg'), 'Confirma el cierre', 'err'); return; }
-    const { data: { user } } = await supabase.auth.getUser();
+    let user; try { user = await requireUser(); } catch(e) { return; }
+    $('b-submit').disabled = true;
     const { error } = await supabase.from('bitacora').insert({
       submitted_by: user.id,
       branch: $('b-sucursal').value,
@@ -454,15 +522,21 @@
       notas: $('b-notas').value,
       confirmacion: true
     });
-    if (error) { showMsg($('b-msg'), 'Error: ' + error.message, 'err'); return; }
-    showMsg($('b-msg'), '✅ Bitácora enviada. ¡Gracias!', 'ok');
-    $('b-submit').disabled = true;
+    if (error) { showMsg($('b-msg'), 'Error: ' + error.message, 'err'); $('b-submit').disabled = false; return; }
+    // Reset form, re-enable, and return home so a captain can log another branch
+    $('b-msg').textContent = '✅ Bitácora enviada. ¡Gracias!'; $('b-msg').className = 'msg ok'; $('b-msg').classList.remove('hidden');
+    setTimeout(() => {
+      resetForm('bitacora');
+      clearMsg($('b-msg'));
+      goHome();
+    }, 1200);
   });
 
   // ---- MANTENIMIENTO ----
   $('m-submit').addEventListener('click', async () => {
     if (!$('m-desc').value.trim()) { showMsg($('m-msg'), 'Describe el problema', 'err'); return; }
-    const { data: { user } } = await supabase.auth.getUser();
+    let user; try { user = await requireUser(); } catch(e) { return; }
+    $('m-submit').disabled = true;
     const { error } = await supabase.from('maintenance_requests').insert({
       submitted_by: user.id,
       branch: $('m-sucursal').value,
@@ -470,15 +544,16 @@
       description: $('m-desc').value,
       priority: (document.querySelector('input[name="m-prio"]:checked') || {}).value || 'Normal'
     });
-    if (error) { showMsg($('m-msg'), 'Error: ' + error.message, 'err'); return; }
-    showMsg($('m-msg'), '✅ Solicitud enviada', 'ok');
-    $('m-submit').disabled = true;
+    if (error) { showMsg($('m-msg'), 'Error: ' + error.message, 'err'); $('m-submit').disabled = false; return; }
+    $('m-msg').textContent = '✅ Solicitud enviada'; $('m-msg').className = 'msg ok'; $('m-msg').classList.remove('hidden');
+    setTimeout(() => { resetForm('mantenimiento'); clearMsg($('m-msg')); goHome(); }, 1200);
   });
 
   // ---- COMPRAS ----
   $('c-submit').addEventListener('click', async () => {
     if (!$('c-item').value.trim()) { showMsg($('c-msg'), 'Describe lo que necesitas', 'err'); return; }
-    const { data: { user } } = await supabase.auth.getUser();
+    let user; try { user = await requireUser(); } catch(e) { return; }
+    $('c-submit').disabled = true;
     const { error } = await supabase.from('purchases').insert({
       submitted_by: user.id,
       branch: $('c-sucursal').value,
@@ -486,21 +561,22 @@
       vendor: $('c-vendor').value,
       amount: $('c-amount').value ? parseFloat($('c-amount').value) : null
     });
-    if (error) { showMsg($('c-msg'), 'Error: ' + error.message, 'err'); return; }
-    showMsg($('c-msg'), '✅ Solicitud enviada', 'ok');
-    $('c-submit').disabled = true;
+    if (error) { showMsg($('c-msg'), 'Error: ' + error.message, 'err'); $('c-submit').disabled = false; return; }
+    $('c-msg').textContent = '✅ Solicitud enviada'; $('c-msg').className = 'msg ok'; $('c-msg').classList.remove('hidden');
+    setTimeout(() => { resetForm('compras'); clearMsg($('c-msg')); goHome(); }, 1200);
   });
 
   // ---- BUZON ----
   $('z-submit').addEventListener('click', async () => {
     if (!$('z-msg').value.trim()) { showMsg($('z-msg2'), 'Escribe tu mensaje', 'err'); return; }
+    $('z-submit').disabled = true;
     const { error } = await supabase.from('buzon').insert({
       message: $('z-msg').value,
       category: $('z-cat').value
     });
-    if (error) { showMsg($('z-msg2'), 'Error: ' + error.message, 'err'); return; }
-    showMsg($('z-msg2'), '✅ ¡Gracias por tu opinión!', 'ok');
-    $('z-submit').disabled = true;
+    if (error) { showMsg($('z-msg2'), 'Error: ' + error.message, 'err'); $('z-submit').disabled = false; return; }
+    $('z-msg2').textContent = '✅ ¡Gracias por tu opinión!'; $('z-msg2').className = 'msg ok'; $('z-msg2').classList.remove('hidden');
+    setTimeout(() => { resetForm('buzon'); clearMsg($('z-msg2')); goHome(); }, 1200);
   });
 
   // ---- INIT ----
