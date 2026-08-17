@@ -12,40 +12,47 @@ header { background:var(--accent); color:#fff; padding:26px 20px; text-align:cen
 header h1 { font-size:1.4rem; font-weight:700; }
 header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 
-  .doc-page { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
+  
+  .doc-page { max-width: 780px; margin: 0 auto; padding: 28px 20px 80px; }
   .doc-breadcrumb { font-size: 0.85rem; color: #6b6b6b; margin-bottom: 18px; }
   .doc-breadcrumb a { color: #2f3a2f; text-decoration: none; font-weight: 600; }
   .doc-breadcrumb a:hover { text-decoration: underline; }
   .doc-title { font-size: 1.9rem; font-weight: 800; line-height: 1.2; margin: 8px 0 6px; }
   .doc-subtitle { font-size: 1.05rem; color: #6b6b6b; font-weight: 400; margin: 0 0 24px; }
-  .doc-h2 { font-size: 1.4rem; font-weight: 700; margin: 34px 0 12px; padding-top: 8px; border-top: 1px solid #e3e0d8; }
-  .doc-h3 { font-size: 1.15rem; font-weight: 700; margin: 26px 0 10px; }
-  .doc-h4 { font-size: 1.02rem; font-weight: 700; margin: 20px 0 8px; }
+  .doc-h2 { font-size: 1.35rem; font-weight: 800; margin: 40px 0 14px; padding: 14px 0 10px; border-top: 2px solid #2f3a2f; scroll-margin-top: 70px; }
+  .doc-h3 { font-size: 1.12rem; font-weight: 700; margin: 30px 0 10px; color: #2f3a2f; scroll-margin-top: 70px; }
+  .doc-h4 { font-size: 1.02rem; font-weight: 700; margin: 22px 0 8px; }
   .doc-h5, .doc-h6 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 6px; }
-  .doc-page p { margin: 10px 0; line-height: 1.6; }
-  .doc-page ul, .doc-page ol { margin: 8px 0 8px 22px; line-height: 1.55; }
-  .doc-page li { margin: 5px 0; }
-  .doc-page b, .doc-page strong { font-weight: 700; }
+  .doc-page p { margin: 12px 0; line-height: 1.7; font-size: 1rem; }
+  .doc-page ul, .doc-page ol { margin: 10px 0 10px 24px; line-height: 1.65; }
+  .doc-page li { margin: 7px 0; }
+  .doc-page li::marker { color: #2f3a2f; }
+  .doc-page b, .doc-page strong { font-weight: 700; color: #1a1a1a; }
   .doc-page table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
-  .doc-page th { background: #eef1fb; text-align: left; padding: 9px 12px; border: 1px solid #e3e0d8; font-weight: 700; }
-  .doc-page td { padding: 9px 12px; border: 1px solid #e3e0d8; vertical-align: top; }
+  .doc-page th { background: #2f3a2f; color: #fff; text-align: left; padding: 10px 12px; border: 1px solid #2f3a2f; font-weight: 700; }
+  .doc-page td { padding: 10px 12px; border: 1px solid #e3e0d8; vertical-align: top; }
   .doc-page tr:nth-child(even) td { background: #faf9f5; }
   .doc-page a { color: #2f3a2f; font-weight: 600; }
   .doc-page a:hover { text-decoration: underline; }
-  .doc-page blockquote { margin: 12px 0; padding: 10px 16px; border-left: 4px solid #c9c4b8; background: #faf9f5; color: #4a4a4a; font-style: italic; }
-  .doc-meta { font-size: 0.78rem; color: #a0a0a0; margin-top: 26px; padding-top: 14px; border-top: 1px solid #e3e0d8; }
+  .doc-page blockquote { margin: 14px 0; padding: 12px 18px; border-left: 4px solid #2f3a2f; background: #f4f6f4; color: #3a3a3a; font-style: italic; border-radius: 0 8px 8px 0; }
+  .doc-meta { font-size: 0.78rem; color: #a0a0a0; margin-top: 30px; padding-top: 14px; border-top: 1px solid #e3e0d8; }
 
-
-  .doc-toc { background:#fff; border:1px solid #e3e0d8; border-radius:12px; padding:16px 18px; margin:0 0 24px; }
+  /* Sticky TOC */
+  .doc-toc { background:#fff; border:1px solid #e3e0d8; border-radius:12px; padding:16px 18px; margin:0 0 24px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
   .doc-toc-title { font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b6b6b; margin-bottom:10px; }
   .doc-toc ul { list-style:none; margin:0; padding:0; }
   .doc-toc li { margin:6px 0; line-height:1.4; }
   .doc-toc a { color:#2f3a2f; text-decoration:none; font-weight:500; }
-  .doc-toc a:hover { text-decoration:underline; }
+  .doc-toc a:hover { text-decoration:underline; color:#4a5d4a; }
   .doc-toc .toc-h3 { padding-left:16px; font-size:0.92rem; }
   .doc-toc .toc-h2 { font-weight:600; }
-  .doc-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:16px 0; }
+  .doc-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:16px 0; border-radius:8px; border:1px solid #e3e0d8; }
   .doc-table-wrap table { margin:0; min-width:100%; }
+
+  /* Scroll-to-top button */
+  .to-top { position:fixed; bottom:20px; right:20px; width:48px; height:48px; border-radius:50%; background:#2f3a2f; color:#fff; border:none; font-size:1.3rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.2); opacity:0; pointer-events:none; transition:opacity 0.2s; z-index:100; }
+  .to-top.show { opacity:1; pointer-events:auto; }
+  .to-top:active { transform:scale(0.95); }
 </style>
 </head>
 <body>
@@ -899,5 +906,18 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ul>
     <div class="doc-meta">Documento generado automáticamente desde Google Docs.</div>
   </div>
+
+  <button class="to-top" id="toTop" aria-label="Volver arriba">↑</button>
+  <script>
+  (function(){
+    var btn = document.getElementById('toTop');
+    if (!btn) return;
+    window.addEventListener('scroll', function(){
+      if (window.scrollY > 300) btn.classList.add('show');
+      else btn.classList.remove('show');
+    });
+    btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  })();
+  </script>
 </body>
 </html>
