@@ -327,8 +327,33 @@
   <footer>Nudo — Ramen y Boba · CDMX</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>if (typeof window.supabase === 'undefined') { document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>'); }</script>
   <script>
+  // Robust loader: try multiple CDNs, then show a clear error
+  (function loadSupabase(){
+    if (window.supabase) { initApp(); return; }
+    var tried = 0;
+    var urls = [
+      "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2",
+      "https://unpkg.com/@supabase/supabase-js@2",
+      "https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.45.4/supabase.min.js"
+    ];
+    function tryNext(){
+      if (tried >= urls.length) {
+        var m = document.getElementById('login-msg');
+        if (m) { m.textContent = 'Error de conexión. Revisa tu internet y recarga.'; m.className = 'msg err'; m.classList.remove('hidden'); }
+        return;
+      }
+      var s = document.createElement('script');
+      s.src = urls[tried++];
+      s.onload = function(){ if (window.supabase) initApp(); else tryNext(); };
+      s.onerror = tryNext;
+      document.head.appendChild(s);
+    }
+    tryNext();
+  })();
+  </script>
+  <script>
+  function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
@@ -498,6 +523,7 @@
       navigator.serviceWorker.register('/nudo-hub/sw.js').catch(() => {});
     });
   }
+  } // end initApp
   </script>
 </body>
 </html>
