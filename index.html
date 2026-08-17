@@ -95,6 +95,18 @@
     color: var(--muted);
     font-size: 0.8rem;
   }
+
+  .rv-card { padding: 0; overflow: hidden; }
+  .rv-viewport { overflow: hidden; }
+  .rv-slide { display: none; padding: 18px 18px 6px; }
+  .rv-slide.active { display: block; }
+  .rv-meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; }
+  .rv-text { font-size: 0.95rem; line-height: 1.5; color: var(--ink); }
+  .rv-author { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
+  .rv-author a { color: var(--accent); text-decoration: none; }
+  .rv-dots { display: flex; justify-content: center; gap: 6px; padding: 12px 0 14px; }
+  .rv-dot { width: 7px; height: 7px; border-radius: 50%; background: #d5d2c8; transition: background 0.2s; cursor: pointer; }
+  .rv-dot.active { background: var(--accent); }
 </style>
 </head>
 <body>
@@ -226,6 +238,79 @@
       </div>
     </div>
     <!-- NUDO_PERF_END -->
+  <!-- NUDO_REVIEWS_START -->
+    <div class="section-title" style="margin-top:40px;">⭐ Opiniones de nuestros clientes</div>
+    <div class="card rv-card">
+      <div class="rv-viewport">
+        <div class="rv-slide">
+                  <div class="rv-meta"><span style="color:#e8a13a;">★★★★★</span><span style="color:#ddd;"></span> <b>5.0</b> · Nudo Roma Norte · a week ago</div>
+                  <div class="rv-text">&ldquo;I came here with a very critical eye as a Japanese American, wanting to see how the food measured up—but this place exceeded my expectations.
+
+First of all, Gabriel's service was exceptional. I was having a hard time deciding between three different soup bases, so he brought me small samples of all three to taste before I ordered. That level of hospitality really stood out. He is a true asset to this business.
+
+The ramen was excellent—refreshing, creative, and subtle, with well-balanced flavors that genuinely surprised me. I will definitely be back!&rdquo;</div>
+                  <div class="rv-author">— naoko shimizu · <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2tsUU1TMUxiVTAxTFhKS1IwcFZTbEJxVFV0RU1sRRAB!2m1!1s0x85d1ff001f125863:0xa50e523a996d2700" target="_blank" rel="noopener">Ver en Google Maps</a></div>
+                </div>
+<div class="rv-slide">
+                  <div class="rv-meta"><span style="color:#e8a13a;">★★★★★</span><span style="color:#ddd;"></span> <b>5.0</b> · Nudo Roma Norte · 2 months ago</div>
+                  <div class="rv-text">&ldquo;As a Singaporean, the noodles are LEGIT! I was so satisfied with my bowl of laksa, and the pot of oolong tea. It's Asian food done properly. I also had the appetisers of fried chicken and wontons. Will come again.&rdquo;</div>
+                  <div class="rv-author">— Ru-Ding Tan · <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT21oMFFXeGxjMkptU1dvMFduQXlORkpwVlhwdVoxRRAB!2m1!1s0x85d1ff001f125863:0xa50e523a996d2700" target="_blank" rel="noopener">Ver en Google Maps</a></div>
+                </div>
+<div class="rv-slide">
+                  <div class="rv-meta"><span style="color:#e8a13a;">★★★★★</span><span style="color:#ddd;"></span> <b>5.0</b> · Nudo Del Valle · a month ago</div>
+                  <div class="rv-text">&ldquo;After I raised concerns about a waiter adding a tip to my bill without notifying me during my last visit, the restaurant took the matter seriously and addressed the issue with their staff. They invited me back and offered a discount as an apology for the previous experience.
+
+I visited again today, and this time I had a very positive experience with both the food and the payment process. I was able to choose the tip percentage myself, and I could clearly see exactly how much my card would be charged before completing the payment.
+
+They truly care about customer service, and I really appreciate the effort they made to address my concerns and improve my experience.
+
+I highly recommend the fried chicken. It’s Taiwanese-style and tastes absolutely delicious!&rdquo;</div>
+                  <div class="rv-author">— Jamie Yan · <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2tGdmRXNTRabWROT1UxU1FrcHBORFIzZERoSVoxRRAB!2m1!1s0x85d1ffe348527831:0xce6e0b2ccb393587" target="_blank" rel="noopener">Ver en Google Maps</a></div>
+                </div>
+<div class="rv-slide">
+                  <div class="rv-meta"><span style="color:#e8a13a;">★★★★</span><span style="color:#ddd;">☆</span> <b>4.0</b> · Nudo Del Valle · 5 months ago</div>
+                  <div class="rv-text">&ldquo;I go past all the time to go to city market and decided to stop by. I ordered the rice cake starter which was tasty but a bit stodgy, but think that's the style. For the main I ordered the Tom ka soup and it tasty flavour wise was ferociously hot. I mean, I like spicy food but my nose was literally running non-stop using countless serviettes and I couldn't finish it. I decided to take it away, added coconut milk and water just to make it bearable. Be warned. My stomach was sore afterwards and I think it didn't need to be that hot as it kind of ruined the experience. I won't order it again but I will go back. I suggest they label the chilli levels so customers are well informed.&rdquo;</div>
+                  <div class="rv-author">— Raju Singh · <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT2xkVVpXUXhWM0ZqV0hneFh6aEtRVUpaZVdOUk4yYxAB!2m1!1s0x85d1ffe348527831:0xce6e0b2ccb393587" target="_blank" rel="noopener">Ver en Google Maps</a></div>
+                </div>
+<div class="rv-slide">
+                  <div class="rv-meta"><span style="color:#e8a13a;">★★★★★</span><span style="color:#ddd;"></span> <b>5.0</b> · Sunchill · a month ago</div>
+                  <div class="rv-text">&ldquo;My boyfriend and I had a great experience having lunch here. We ordered a dish with chicken and rice that was absolutely yummy, the teas were perfect and we appreciated the size for the cost, finally our favorite part was the dessert; a panna cotta with mango sauce,  delicious and adorable! We definitely coming back soon&rdquo;</div>
+                  <div class="rv-author">— Nora Lopez · <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25sbmFEUldSbXBtV1RGb2NtRlJZWGx5ZUZNeFFWRRAB!2m1!1s0x85d1f91b7d75a5db:0x8e0e913e24a6ec" target="_blank" rel="noopener">Ver en Google Maps</a></div>
+                </div>
+<div class="rv-slide">
+                  <div class="rv-meta"><span style="color:#e8a13a;">★★★★★</span><span style="color:#ddd;"></span> <b>5.0</b> · Sunchill · 11 months ago</div>
+                  <div class="rv-text">&ldquo;Wow! I can’t tell you how surprised I was to find a Taiwanese spot in CDMX, much less a pretty good one!
+
+Lu rou fan (arroz lu rou) is my favorite dish and my benchmark for the cuisine. The expression at Sunchill is excellent! The flavors are spot on in terms of savory with a touch of sweet, and the rice is texturally spot on as well.
+
+Most importantly, Sunchill uses diced pork belly for this dish. A lot of Taiwanese spots actually cheap out and use ground pork, so I’m glad to see effort and care put in here. The traditional yellow daikon does get swapped out for pickled cucumber, but I actually really enjoyed it.
+
+I will say the popcorn chicken (palomita de pollo) was just ok. The core flavors are correct with the basil, five spice and white pepper, but it is lacking some savoriness. I think there was also slightly less cornstarch than is typical, but the other photos I've seen look texturally correct 🙂.
+
+Overall, I'm very impressed with Sunchill. I highly recommend the arroz lu rou, and by that virtue I'm sure the gua bai is also good. Thank you for doing my culture proud!&rdquo;</div>
+                  <div class="rv-author">— Michael Chen · <a href="https://www.google.com/maps/reviews/data=!4m6!14m5!1m4!2m3!1sCi9DQUlRQUNvZENodHljRjlvT25Ca01FOVhWVVUwU0dsTlRFTlBla1pmVVVSTGFsRRAB!2m1!1s0x85d1f91b7d75a5db:0x8e0e913e24a6ec" target="_blank" rel="noopener">Ver en Google Maps</a></div>
+                </div>
+      </div>
+      <div class="rv-dots"><span class="rv-dot"></span><span class="rv-dot"></span><span class="rv-dot"></span><span class="rv-dot"></span><span class="rv-dot"></span><span class="rv-dot"></span></div>
+    </div>
+    <script>
+    (function(){
+      var slides=document.querySelectorAll('.rv-slide');
+      var dots=document.querySelectorAll('.rv-dot');
+      if(!slides.length) return;
+      var i=0;
+      slides[0].classList.add('active'); dots[0].classList.add('active');
+      function go(n){
+        slides[i].classList.remove('active'); dots[i].classList.remove('active');
+        i=(n+slides.length)%slides.length;
+        slides[i].classList.add('active'); dots[i].classList.add('active');
+      }
+      dots.forEach(function(d,k){ d.addEventListener('click',function(){ go(k); reset(); }); });
+      var timer=setInterval(function(){ go(i+1); },6000);
+      function reset(){ clearInterval(timer); timer=setInterval(function(){ go(i+1); },6000); }
+    })();
+    </script>
+    <!-- NUDO_REVIEWS_END -->
   </div>
 
   <footer>Nudo — Ramen y Boba · CDMX</footer>
