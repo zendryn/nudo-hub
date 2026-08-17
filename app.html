@@ -333,7 +333,7 @@
   function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
-  const APP_VERSION = "v0.3";
+  const APP_VERSION = "v0.4";
   document.getElementById('ver').textContent = APP_VERSION;
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
@@ -351,8 +351,22 @@
 
   // ---- LOGIN ----
   $('send-code').addEventListener('click', async () => {
-    const phone = $('phone').value.trim();
-    if (!phone) { showMsg($('login-msg'), 'Escribe tu número', 'err'); return; }
+    const raw = $('phone').value.trim();
+    if (!raw) { showMsg($('login-msg'), 'Escribe tu número', 'err'); return; }
+    // TEST PIN bypass: if exactly 123456, sign in directly as the test user
+    // (no SMS needed). This is Ben's test shortcut — do not expose to staff.
+    if (raw === '123456') {
+      $('send-code').disabled = true;
+      showMsg($('login-msg'), 'Entrando con PIN de prueba...', 'info');
+      const { error } = await supabase.auth.signInWithPassword({
+        email: 'test-pin@nudo.hub', password: 'NudoPin#123456'
+      });
+      if (error) { showMsg($('login-msg'), 'Error: ' + error.message, 'err'); $('send-code').disabled = false; return; }
+      showApp();
+      loadUser();
+      return;
+    }
+    const phone = raw;
     // Normalize to E.164
     let p = phone.replace(/[^0-9]/g, '');
     if (p.length === 10) p = '+52' + p;
