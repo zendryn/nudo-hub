@@ -53,6 +53,16 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
   .to-top { position:fixed; bottom:20px; right:20px; width:48px; height:48px; border-radius:50%; background:#2f3a2f; color:#fff; border:none; font-size:1.3rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.2); opacity:0; pointer-events:none; transition:opacity 0.2s; z-index:100; }
   .to-top.show { opacity:1; pointer-events:auto; }
   .to-top:active { transform:scale(0.95); }
+
+  /* Reading progress bar */
+  .progress-bar { position:fixed; top:0; left:0; height:4px; width:0%; background:#e8a13a; z-index:200; transition:width 0.1s; }
+  /* Collapsible sections */
+  .doc-collapse { margin: 6px 0; }
+  .doc-collapse summary { cursor:pointer; font-weight:700; color:#2f3a2f; padding:10px 12px; background:#f4f6f4; border:1px solid #e3e0d8; border-radius:8px; list-style:none; display:flex; align-items:center; justify-content:space-between; }
+  .doc-collapse summary::-webkit-details-marker { display:none; }
+  .doc-collapse summary::after { content:'▸'; transition:transform 0.2s; color:#2f3a2f; }
+  .doc-collapse[open] summary::after { transform:rotate(90deg); }
+  .doc-collapse .collapse-body { padding:12px 14px; border:1px solid #e3e0d8; border-top:none; border-radius:0 0 8px 8px; background:#fff; }
 </style>
 </head>
 <body>
@@ -243,6 +253,19 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
       else btn.classList.remove('show');
     });
     btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  })();
+  </script>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <script>
+  (function(){
+    var bar = document.getElementById('progressBar');
+    if (!bar) return;
+    window.addEventListener('scroll', function(){
+      var h = document.documentElement;
+      var scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+      bar.style.width = scrolled + '%';
+    });
   })();
   </script>
 </body>
