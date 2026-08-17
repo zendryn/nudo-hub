@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nudo Hub</title>
+<link rel="manifest" href="/nudo-hub/manifest.json">
+<meta name="theme-color" content="#2f3a2f">
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #2f3a2f;
+    --accent2: #4a5d4a;
+    --border: #e3e0d8;
+    --radius: 16px;
+    --green: #2e7d32;
+    --red: #c62828;
+    --amber: #e8a13a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 20px 20px 16px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header h1 { font-size: 1.4rem; font-weight: 700; }
+  header p { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
+  .section-title {
+    font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.6px; color: var(--muted); margin: 24px 0 10px;
+  }
+  .card-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  a.card, .card {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px;
+    text-decoration: none; color: var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.08s ease;
+  }
+  a.card:active { transform: scale(0.98); }
+  .icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; flex-shrink: 0;
+  }
+  .icon-doc { background: #eef1fb; }
+  .icon-form { background: #e6f6ec; }
+  .icon-sheet { background: #e9f4ef; }
+  .card .text { flex: 1; }
+  .card .title { font-size: 1.05rem; font-weight: 600; }
+  .card .sub { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+  .card .arrow { color: var(--muted); font-size: 1.3rem; }
+
+  /* Login */
+  .login-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-top: 20px;
+  }
+  .login-box h2 { font-size: 1.2rem; margin-bottom: 6px; }
+  .login-box p { font-size: 0.9rem; color: var(--muted); margin-bottom: 18px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 14px; font-size: 1rem;
+    border: 1px solid var(--border); border-radius: 12px;
+    background: #fff; color: var(--ink);
+  }
+  .field textarea { min-height: 80px; resize: vertical; }
+  .btn {
+    width: 100%; padding: 16px; font-size: 1.05rem; font-weight: 600;
+    border: none; border-radius: 12px; cursor: pointer;
+    background: var(--accent); color: #fff;
+    transition: opacity 0.15s;
+  }
+  .btn:active { opacity: 0.85; }
+  .btn:disabled { opacity: 0.5; }
+  .btn-secondary { background: var(--accent2); }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--ink); }
+  .msg { font-size: 0.9rem; margin-top: 12px; padding: 10px; border-radius: 10px; }
+  .msg.err { background: #fdecea; color: var(--red); }
+  .msg.ok { background: #e8f5e9; color: var(--green); }
+  .msg.info { background: #eef1fb; color: var(--accent); }
+
+  /* User bar */
+  .userbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; background: var(--card); border-bottom: 1px solid var(--border);
+  }
+  .userbar .who { font-size: 0.9rem; font-weight: 600; }
+  .userbar .logout { font-size: 0.85rem; color: var(--accent); background: none; border: none; cursor: pointer; }
+
+  /* Form page */
+  .form-page { display: none; }
+  .form-page.active { display: block; }
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); background: none; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; margin-bottom: 12px; }
+  .form-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .form-card h2 { font-size: 1.2rem; margin-bottom: 16px; }
+  .radio-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .radio-group label {
+    flex: 1; min-width: 90px; text-align: center; padding: 12px 8px;
+    border: 1px solid var(--border); border-radius: 12px; cursor: pointer;
+    font-size: 0.9rem; font-weight: 500;
+  }
+  .radio-group input { display: none; }
+  .radio-group input:checked + span { color: var(--accent); font-weight: 700; }
+  .radio-group label:has(input:checked) { border-color: var(--accent); background: #eef1fb; }
+  .checkbox-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .checkbox-row input { width: 22px; height: 22px; }
+
+  /* Schedule */
+  .sched-frame { width: 100%; border: 1px solid var(--border); border-radius: 12px; min-height: 400px; background: #fff; }
+
+  footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Nudo Hub</h1>
+    <p id="header-sub">Acceso del equipo</p>
+  </header>
+
+  <div class="wrap">
+    <!-- LOGIN VIEW -->
+    <div id="login-view">
+      <div class="login-box">
+        <h2>Bienvenido 👋</h2>
+        <p>Entra con tu número de teléfono. Te mandamos un código por WhatsApp o SMS.</p>
+        <div class="field">
+          <label>Tu número (con lada, ej. 55 1234 5678)</label>
+          <input type="tel" id="phone" inputmode="tel" placeholder="55 1234 5678">
+        </div>
+        <button class="btn" id="send-code">Enviar código</button>
+        <div class="field hidden" id="code-field" style="margin-top:14px;">
+          <label>Código de 6 dígitos</label>
+          <input type="text" id="code" inputmode="numeric" maxlength="6" placeholder="123456">
+        </div>
+        <button class="btn btn-secondary hidden" id="verify-code" style="margin-top:10px;">Entrar</button>
+        <div class="msg hidden" id="login-msg"></div>
+      </div>
+    </div>
+
+    <!-- APP VIEW -->
+    <div id="app-view" class="hidden">
+      <div class="userbar">
+        <span class="who" id="user-name">Equipo</span>
+        <button class="logout" id="logout">Salir</button>
+      </div>
+
+      <!-- HOME -->
+      <div id="home-view">
+        <div class="section-title">Formularios</div>
+        <div class="card-list">
+          <a class="card" href="#" data-form="bitacora">
+            <div class="icon icon-form">📓</div>
+            <div class="text"><div class="title">Bitácora de Cierre</div><div class="sub">Registro del cierre de unidad</div></div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="card" href="#" data-form="mantenimiento">
+            <div class="icon icon-form">🔧</div>
+            <div class="text"><div class="title">Solicitud de Mantenimiento</div><div class="sub">Reporta problemas o averías</div></div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="card" href="#" data-form="compras">
+            <div class="icon icon-form">🛒</div>
+            <div class="text"><div class="title">Solicitud de Compras</div><div class="sub">Solicita compras o insumos</div></div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="card" href="#" data-form="buzon">
+            <div class="icon icon-form">💬</div>
+            <div class="text"><div class="title">Buzón de Sugerencias</div><div class="sub">Anónimo y opcional</div></div>
+            <div class="arrow">›</div>
+          </a>
+        </div>
+
+        <div class="section-title">Horario</div>
+        <div class="card-list">
+          <a class="card" href="#" data-form="horario">
+            <div class="icon icon-sheet">🗓️</div>
+            <div class="text"><div class="title">Mi horario</div><div class="sub">Consulta tu semana</div></div>
+            <div class="arrow">›</div>
+          </a>
+        </div>
+
+        <div class="section-title">Guía</div>
+        <div class="card-list">
+          <a class="card" href="/nudo-hub/reglas.html">
+            <div class="icon icon-doc">📄</div>
+            <div class="text"><div class="title">Reglas y Políticas</div><div class="sub">Manual del equipo</div></div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="card" href="/nudo-hub/guia.html">
+            <div class="icon icon-doc">📘</div>
+            <div class="text"><div class="title">Guía Operativa</div><div class="sub">Referencia operativa</div></div>
+            <div class="arrow">›</div>
+          </a>
+          <a class="card" href="/nudo-hub/contactos.html">
+            <div class="icon icon-sheet">📞</div>
+            <div class="text"><div class="title">Contactos de servicios</div><div class="sub">Electricista, plomero y más</div></div>
+            <div class="arrow">›</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- FORM PAGES -->
+      <div id="form-bitacora" class="form-page">
+        <button class="back" data-back>‹ Volver</button>
+        <div class="form-card">
+          <h2>📓 Bitácora de Cierre</h2>
+          <div class="field"><label>Sucursal</label>
+            <select id="b-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
+          </div>
+          <div class="field"><label>Corte general</label>
+            <div class="radio-group">
+              <label><input type="radio" name="b-corte" value="Se realizó bien"><span>✅ Bien</span></label>
+              <label><input type="radio" name="b-corte" value="Con problemas"><span>⚠️ Problemas</span></label>
+              <label><input type="radio" name="b-corte" value="No se realizó"><span>❌ No</span></label>
+            </div>
+          </div>
+          <div class="field"><label>¿En qué área hubo problema?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="b-area" value="Barra"><span>Barra</span></label>
+              <label><input type="radio" name="b-area" value="Caja"><span>Caja</span></label>
+              <label><input type="radio" name="b-area" value="Terminales"><span>Terminales</span></label>
+              <label><input type="radio" name="b-area" value="Otro"><span>Otro</span></label>
+            </div>
+          </div>
+          <div class="field"><label>Descripción del problema</label><textarea id="b-problema"></textarea></div>
+          <div class="field"><label>Afluencia</label>
+            <div class="radio-group">
+              <label><input type="radio" name="b-afluencia" value="Baja"><span>🟢 Baja</span></label>
+              <label><input type="radio" name="b-afluencia" value="Media"><span>🟡 Media</span></label>
+              <label><input type="radio" name="b-afluencia" value="Alta"><span>🔴 Alta</span></label>
+            </div>
+          </div>
+          <div class="field"><label>Personal / horas extra</label><textarea id="b-personal" placeholder="Quién, cuántas horas, por qué (opcional)"></textarea></div>
+          <div class="field"><label>Cambios de horario</label><textarea id="b-horario" placeholder="Quién, de qué hora a qué hora, por qué (opcional)"></textarea></div>
+          <div class="field"><label>Notas / incidentes</label><textarea id="b-notas"></textarea></div>
+          <div class="checkbox-row"><input type="checkbox" id="b-confirm"><label>Confirmo el cierre de la unidad</label></div>
+          <button class="btn" id="b-submit">Enviar bitácora</button>
+          <div class="msg hidden" id="b-msg"></div>
+        </div>
+      </div>
+
+      <div id="form-mantenimiento" class="form-page">
+        <button class="back" data-back>‹ Volver</button>
+        <div class="form-card">
+          <h2>🔧 Solicitud de Mantenimiento</h2>
+          <div class="field"><label>Sucursal</label>
+            <select id="m-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
+          </div>
+          <div class="field"><label>Área</label>
+            <select id="m-area"><option>Cocina</option><option>Barra</option><option>Comedor</option><option>Terraza</option><option>Baños</option><option>Otro</option></select>
+          </div>
+          <div class="field"><label>¿Qué se dañó?</label><textarea id="m-desc" placeholder="Describe el problema"></textarea></div>
+          <div class="field"><label>Prioridad</label>
+            <div class="radio-group">
+              <label><input type="radio" name="m-prio" value="Normal"><span>Normal</span></label>
+              <label><input type="radio" name="m-prio" value="Urgente"><span>🔴 Urgente</span></label>
+            </div>
+          </div>
+          <button class="btn" id="m-submit">Enviar solicitud</button>
+          <div class="msg hidden" id="m-msg"></div>
+        </div>
+      </div>
+
+      <div id="form-compras" class="form-page">
+        <button class="back" data-back>‹ Volver</button>
+        <div class="form-card">
+          <h2>🛒 Solicitud de Compras</h2>
+          <div class="field"><label>Sucursal</label>
+            <select id="c-sucursal"><option>Roma Norte</option><option>Del Valle</option></select>
+          </div>
+          <div class="field"><label>¿Qué necesitas?</label><textarea id="c-item" placeholder="Describe el artículo o insumo"></textarea></div>
+          <div class="field"><label>Proveedor (si lo sabes)</label><input type="text" id="c-vendor"></div>
+          <div class="field"><label>Monto estimado (MXN)</label><input type="number" id="c-amount" inputmode="numeric"></div>
+          <button class="btn" id="c-submit">Enviar solicitud</button>
+          <div class="msg hidden" id="c-msg"></div>
+        </div>
+      </div>
+
+      <div id="form-buzon" class="form-page">
+        <button class="back" data-back>‹ Volver</button>
+        <div class="form-card">
+          <h2>💬 Buzón de Sugerencias</h2>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Anónimo y opcional. Dinos tu opinión — los hicimos para ti.</p>
+          <div class="field"><label>Tu mensaje</label><textarea id="z-msg" placeholder="Escribe aquí..."></textarea></div>
+          <div class="field"><label>Categoría</label>
+            <select id="z-cat"><option>General</option><option>Comida</option><option>Servicio</option><option>Instalaciones</option><option>Otro</option></select>
+          </div>
+          <button class="btn" id="z-submit">Enviar</button>
+          <div class="msg hidden" id="z-msg2"></div>
+        </div>
+      </div>
+
+      <div id="form-horario" class="form-page">
+        <button class="back" data-back>‹ Volver</button>
+        <div class="form-card">
+          <h2>🗓️ Mi horario</h2>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">El horario de la semana se publica aquí.</p>
+          <div class="msg info" id="sched-msg">Aún no hay horario publicado. Pregunta a tu capitán o gerente.</div>
+          <iframe class="sched-frame hidden" id="sched-frame"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Nudo — Ramen y Boba · CDMX</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
+  const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+  const $ = id => document.getElementById(id);
+  const views = { login: $('login-view'), app: $('app-view') };
+
+  function showLogin() { views.login.classList.remove('hidden'); views.app.classList.add('hidden'); }
+  function showApp() { views.login.classList.add('hidden'); views.app.classList.remove('hidden'); }
+
+  function showMsg(el, text, type) {
+    el.textContent = text;
+    el.className = 'msg ' + type;
+    el.classList.remove('hidden');
+  }
+
+  // ---- LOGIN ----
+  $('send-code').addEventListener('click', async () => {
+    const phone = $('phone').value.trim();
+    if (!phone) { showMsg($('login-msg'), 'Escribe tu número', 'err'); return; }
+    // Normalize to E.164
+    let p = phone.replace(/[^0-9]/g, '');
+    if (p.length === 10) p = '+52' + p;
+    else if (!p.startsWith('52')) p = '52' + p;
+    if (!p.startsWith('+')) p = '+' + p;
+    $('send-code').disabled = true;
+    showMsg($('login-msg'), 'Enviando código...', 'info');
+    const { error } = await supabase.auth.signInWithOtp({ phone: p });
+    if (error) { showMsg($('login-msg'), 'Error: ' + error.message, 'err'); $('send-code').disabled = false; return; }
+    $('code-field').classList.remove('hidden');
+    $('verify-code').classList.remove('hidden');
+    $('send-code').classList.add('hidden');
+    showMsg($('login-msg'), 'Te enviamos un código. Escríbelo abajo.', 'ok');
+  });
+
+  $('verify-code').addEventListener('click', async () => {
+    const phone = $('phone').value.trim();
+    let p = phone.replace(/[^0-9]/g, '');
+    if (p.length === 10) p = '+52' + p;
+    else if (!p.startsWith('52')) p = '52' + p;
+    if (!p.startsWith('+')) p = '+' + p;
+    const code = $('code').value.trim();
+    if (!code) { showMsg($('login-msg'), 'Escribe el código', 'err'); return; }
+    $('verify-code').disabled = true;
+    const { error } = await supabase.auth.verifyOtp({ phone: p, token: code, type: 'sms' });
+    if (error) { showMsg($('login-msg'), 'Código incorrecto: ' + error.message, 'err'); $('verify-code').disabled = false; return; }
+    showApp();
+    loadUser();
+  });
+
+  $('logout').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    showLogin();
+  });
+
+  async function loadUser() {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      $('user-name').textContent = user.phone || 'Equipo';
+      $('header-sub').textContent = 'Bienvenido';
+    }
+  }
+
+  // ---- NAVIGATION ----
+  document.querySelectorAll('[data-form]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const f = a.getAttribute('data-form');
+      document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
+      $('home-view').style.display = 'none';
+      $('form-' + f).classList.add('active');
+      if (f === 'horario') loadSchedule();
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.form-page').forEach(p => p.classList.remove('active'));
+      $('home-view').style.display = 'block';
+    });
+  });
+
+  // ---- SCHEDULE ----
+  async function loadSchedule() {
+    // Placeholder: schedule PDF/image URL goes here when Ben provides it
+    // const { data } = await supabase.storage.from('schedules').list();
+    // For now show the message
+  }
+
+  // ---- BITACORA ----
+  $('b-submit').addEventListener('click', async () => {
+    const corte = document.querySelector('input[name="b-corte"]:checked');
+    const afluencia = document.querySelector('input[name="b-afluencia"]:checked');
+    if (!corte || !afluencia) { showMsg($('b-msg'), 'Selecciona corte y afluencia', 'err'); return; }
+    if (!$('b-confirm').checked) { showMsg($('b-msg'), 'Confirma el cierre', 'err'); return; }
+    const { data: { user } } = await supabase.auth.getUser();
+    const { error } = await supabase.from('bitacora').insert({
+      submitted_by: user.id,
+      branch: $('b-sucursal').value,
+      corte: corte.value,
+      area: (document.querySelector('input[name="b-area"]:checked') || {}).value || '',
+      problema: $('b-problema').value,
+      afluencia: afluencia.value,
+      personal: $('b-personal').value,
+      horario: $('b-horario').value,
+      notas: $('b-notas').value,
+      confirmacion: true
+    });
+    if (error) { showMsg($('b-msg'), 'Error: ' + error.message, 'err'); return; }
+    showMsg($('b-msg'), '✅ Bitácora enviada. ¡Gracias!', 'ok');
+    $('b-submit').disabled = true;
+  });
+
+  // ---- MANTENIMIENTO ----
+  $('m-submit').addEventListener('click', async () => {
+    if (!$('m-desc').value.trim()) { showMsg($('m-msg'), 'Describe el problema', 'err'); return; }
+    const { data: { user } } = await supabase.auth.getUser();
+    const { error } = await supabase.from('maintenance_requests').insert({
+      submitted_by: user.id,
+      branch: $('m-sucursal').value,
+      area: $('m-area').value,
+      description: $('m-desc').value,
+      priority: (document.querySelector('input[name="m-prio"]:checked') || {}).value || 'Normal'
+    });
+    if (error) { showMsg($('m-msg'), 'Error: ' + error.message, 'err'); return; }
+    showMsg($('m-msg'), '✅ Solicitud enviada', 'ok');
+    $('m-submit').disabled = true;
+  });
+
+  // ---- COMPRAS ----
+  $('c-submit').addEventListener('click', async () => {
+    if (!$('c-item').value.trim()) { showMsg($('c-msg'), 'Describe lo que necesitas', 'err'); return; }
+    const { data: { user } } = await supabase.auth.getUser();
+    const { error } = await supabase.from('purchases').insert({
+      submitted_by: user.id,
+      branch: $('c-sucursal').value,
+      item: $('c-item').value,
+      vendor: $('c-vendor').value,
+      amount: $('c-amount').value ? parseFloat($('c-amount').value) : null
+    });
+    if (error) { showMsg($('c-msg'), 'Error: ' + error.message, 'err'); return; }
+    showMsg($('c-msg'), '✅ Solicitud enviada', 'ok');
+    $('c-submit').disabled = true;
+  });
+
+  // ---- BUZON ----
+  $('z-submit').addEventListener('click', async () => {
+    if (!$('z-msg').value.trim()) { showMsg($('z-msg2'), 'Escribe tu mensaje', 'err'); return; }
+    const { error } = await supabase.from('buzon').insert({
+      message: $('z-msg').value,
+      category: $('z-cat').value
+    });
+    if (error) { showMsg($('z-msg2'), 'Error: ' + error.message, 'err'); return; }
+    showMsg($('z-msg2'), '✅ ¡Gracias por tu opinión!', 'ok');
+    $('z-submit').disabled = true;
+  });
+
+  // ---- INIT ----
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) { showApp(); loadUser(); }
+    else showLogin();
+  })();
+
+  // PWA: register service worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/nudo-hub/sw.js').catch(() => {});
+    });
+  }
+  </script>
+</body>
+</html>
