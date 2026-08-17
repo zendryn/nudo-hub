@@ -12,61 +12,29 @@ header { background:var(--accent); color:#fff; padding:26px 20px; text-align:cen
 header h1 { font-size:1.4rem; font-weight:700; }
 header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 
-  
-  .doc-page { max-width: 780px; margin: 0 auto; padding: 28px 20px 80px; }
+  .doc-page { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; }
   .doc-breadcrumb { font-size: 0.85rem; color: #6b6b6b; margin-bottom: 18px; }
   .doc-breadcrumb a { color: #2f3a2f; text-decoration: none; font-weight: 600; }
   .doc-breadcrumb a:hover { text-decoration: underline; }
   .doc-title { font-size: 1.9rem; font-weight: 800; line-height: 1.2; margin: 8px 0 6px; }
   .doc-subtitle { font-size: 1.05rem; color: #6b6b6b; font-weight: 400; margin: 0 0 24px; }
-  .doc-h2 { font-size: 1.35rem; font-weight: 800; margin: 40px 0 14px; padding: 14px 0 10px; border-top: 2px solid #2f3a2f; scroll-margin-top: 70px; }
-  .doc-h3 { font-size: 1.12rem; font-weight: 700; margin: 30px 0 10px; color: #2f3a2f; scroll-margin-top: 70px; }
-  .doc-h4 { font-size: 1.02rem; font-weight: 700; margin: 22px 0 8px; }
+  .doc-h2 { font-size: 1.4rem; font-weight: 700; margin: 34px 0 12px; padding-top: 8px; border-top: 1px solid #e3e0d8; }
+  .doc-h3 { font-size: 1.15rem; font-weight: 700; margin: 26px 0 10px; }
+  .doc-h4 { font-size: 1.02rem; font-weight: 700; margin: 20px 0 8px; }
   .doc-h5, .doc-h6 { font-size: 0.95rem; font-weight: 700; margin: 16px 0 6px; }
-  .doc-page p { margin: 12px 0; line-height: 1.7; font-size: 1rem; }
-  .doc-page ul, .doc-page ol { margin: 10px 0 10px 24px; line-height: 1.65; }
-  .doc-page li { margin: 7px 0; }
-  .doc-page li::marker { color: #2f3a2f; }
-  .doc-page b, .doc-page strong { font-weight: 700; color: #1a1a1a; }
+  .doc-page p { margin: 10px 0; line-height: 1.6; }
+  .doc-page ul, .doc-page ol { margin: 8px 0 8px 22px; line-height: 1.55; }
+  .doc-page li { margin: 5px 0; }
+  .doc-page b, .doc-page strong { font-weight: 700; }
   .doc-page table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.92rem; }
-  .doc-page th { background: #2f3a2f; color: #fff; text-align: left; padding: 10px 12px; border: 1px solid #2f3a2f; font-weight: 700; }
-  .doc-page td { padding: 10px 12px; border: 1px solid #e3e0d8; vertical-align: top; }
+  .doc-page th { background: #eef1fb; text-align: left; padding: 9px 12px; border: 1px solid #e3e0d8; font-weight: 700; }
+  .doc-page td { padding: 9px 12px; border: 1px solid #e3e0d8; vertical-align: top; }
   .doc-page tr:nth-child(even) td { background: #faf9f5; }
   .doc-page a { color: #2f3a2f; font-weight: 600; }
   .doc-page a:hover { text-decoration: underline; }
-  .doc-page blockquote { margin: 14px 0; padding: 12px 18px; border-left: 4px solid #2f3a2f; background: #f4f6f4; color: #3a3a3a; font-style: italic; border-radius: 0 8px 8px 0; }
-  .doc-meta { font-size: 0.78rem; color: #a0a0a0; margin-top: 30px; padding-top: 14px; border-top: 1px solid #e3e0d8; }
+  .doc-page blockquote { margin: 12px 0; padding: 10px 16px; border-left: 4px solid #c9c4b8; background: #faf9f5; color: #4a4a4a; font-style: italic; }
+  .doc-meta { font-size: 0.78rem; color: #a0a0a0; margin-top: 26px; padding-top: 14px; border-top: 1px solid #e3e0d8; }
 
-  /* Sticky TOC */
-  .doc-toc { background:#fff; border:1px solid #e3e0d8; border-radius:12px; padding:16px 18px; margin:0 0 24px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
-  .doc-toc-title { font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:#6b6b6b; margin-bottom:10px; }
-  .doc-toc ul { list-style:none; margin:0; padding:0; }
-  .doc-toc li { margin:6px 0; line-height:1.4; }
-  .doc-toc a { color:#2f3a2f; text-decoration:none; font-weight:500; }
-  .doc-toc a:hover { text-decoration:underline; color:#4a5d4a; }
-  .doc-toc .toc-h3 { padding-left:16px; font-size:0.92rem; }
-  .doc-toc .toc-h2 { font-weight:600; }
-  .doc-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:16px 0; border-radius:8px; border:1px solid #e3e0d8; }
-  .doc-table-wrap table { margin:0; min-width:100%; }
-
-  /* Scroll-to-top button */
-  .to-top { position:fixed; bottom:20px; right:20px; width:48px; height:48px; border-radius:50%; background:#2f3a2f; color:#fff; border:none; font-size:1.3rem; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.2); opacity:0; pointer-events:none; transition:opacity 0.2s; z-index:100; }
-  .to-top.show { opacity:1; pointer-events:auto; }
-  .to-top:active { transform:scale(0.95); }
-
-  /* Reading progress bar */
-  .progress-bar { position:fixed; top:0; left:0; height:4px; width:0%; background:#e8a13a; z-index:200; transition:width 0.1s; }
-  /* Collapsible sections */
-  .doc-collapse { margin: 6px 0; }
-  .doc-collapse summary { cursor:pointer; font-weight:700; color:#2f3a2f; padding:10px 12px; background:#f4f6f4; border:1px solid #e3e0d8; border-radius:8px; list-style:none; display:flex; align-items:center; justify-content:space-between; }
-  .doc-collapse summary::-webkit-details-marker { display:none; }
-  .doc-collapse summary::after { content:'▸'; transition:transform 0.2s; color:#2f3a2f; }
-  .doc-collapse[open] summary::after { transform:rotate(90deg); }
-  .doc-collapse .collapse-body { padding:12px 14px; border:1px solid #e3e0d8; border-top:none; border-radius:0 0 8px 8px; background:#fff; }
-
-  .doc-backtop { display:block; text-align:right; font-size:0.8rem; margin:18px 0 4px; }
-  .doc-backtop a { color:#6b6b6b; text-decoration:none; font-weight:500; }
-  .doc-backtop a:hover { color:#2f3a2f; text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -74,37 +42,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
     <h1>Guía Operativa</h1>
     <p style="margin-top:4px;"><a href="/nudo-hub/">← Volver a Nudo Hub</a></p>
   </header>
-  <div class="doc-page" id="top">
-<div class="doc-toc">
-<div class="doc-toc-title">Contenido</div>
-<ul>
-<li class="toc-h2"><a href="#introducci-n-a-nudo-bebidas-y-platos">Introducción a Nudo - Bebidas y Platos</a></li>
-<li class="toc-h2"><a href="#principio-gu-a-enfoque-en-el-cliente-recurrente-high-ltv">Principio Guía: Enfoque en el Cliente Recurrente (High LTV)</a></li>
-<li class="toc-h3"><a href="#misi-n-y-visi-n">Misión y Visión</a></li>
-<li class="toc-h3"><a href="#elevator-pitch-de-nudo">Elevator pitch de Nudo</a></li>
-<li class="toc-h2"><a href="#productos">Productos</a></li>
-<li class="toc-h3"><a href="#bebidas">Bebidas</a></li>
-<li class="toc-h3"><a href="#respuestas-frecuentes-para-bebidas">Respuestas Frecuentes para Bebidas</a></li>
-<li class="toc-h3"><a href="#entradas">Entradas</a></li>
-<li class="toc-h3"><a href="#ramen">Ramen</a></li>
-<li class="toc-h3"><a href="#descripciones-para-fideos">Descripciones para Fideos</a></li>
-<li class="toc-h3"><a href="#salsas">Salsas</a></li>
-<li class="toc-h3"><a href="#estrategia-de-recomendaci-n-seg-n-perfil-de-cliente">Estrategia de Recomendación según Perfil de Cliente</a></li>
-<li class="toc-h2"><a href="#servicio">Servicio</a></li>
-<li class="toc-h3"><a href="#manual-servicio">Manual Servicio</a></li>
-<li class="toc-h3"><a href="#secuencia-de-servicio">Secuencia de Servicio</a></li>
-<li class="toc-h3"><a href="#uso-de-vasos-para-llevar-para-consumo-en-el-salon">Uso de vasos para llevar para consumo en el salon</a></li>
-<li class="toc-h3"><a href="#lista-de-espera">Lista de espera</a></li>
-<li class="toc-h3"><a href="#recuperaci-n-de-servico-por-espera">Recuperación de servico por espera</a></li>
-<li class="toc-h3"><a href="#recuperaci-n-de-servicio-por-error-de-orden">Recuperación de Servicio por error de orden</a></li>
-<li class="toc-h3"><a href="#punto-de-venta">Punto de Venta</a></li>
-<li class="toc-h3"><a href="#m-todos-de-pago-en-nudo">Métodos de Pago en Nudo</a></li>
-<li class="toc-h3"><a href="#pol-tica-de-reservaciones">Política de Reservaciones</a></li>
-<li class="toc-h3"><a href="#recibiendo-entregas">Recibiendo Entregas</a></li>
-<li class="toc-h2"><a href="#contactos-de-provedores-de-servicios-claves">Contactos de provedores de servicios claves</a></li>
-<li class="toc-h2"><a href="#sugerencias-y-quejas">Sugerencias y Quejas</a></li>
-</ul></div>
-
+  <div class="doc-page">
     
 <p>
 </p>
@@ -115,7 +53,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p>
 <h3 class="doc-h3"><b>
 </b></h3>
-<h2 class="doc-h2" id="introducci-n-a-nudo-bebidas-y-platos">Introducción a Nudo - Bebidas y Platos
+<h2 class="doc-h2">Introducción a Nudo - Bebidas y Platos
 </h2>
 <p><b>Nudo – Ramen y Boba</b> es un concepto gastronómico asiático que busca compartir la riqueza culinaria del continente con México. Nuestro menú combina platos típicos de Asia —especialmente fideos— junto con una variedad de entradas y bebidas representativas de diferentes países, creando una experiencia completa que va más allá del sabor.
 </p>
@@ -133,8 +71,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p>
 <p><b>
 </b></p>
-<div class="doc-backtop"><a href="#top">↑ Volver arriba</a></div>
-<h2 class="doc-h2" id="principio-gu-a-enfoque-en-el-cliente-recurrente-high-ltv">Principio Guía: Enfoque en el Cliente Recurrente (High LTV)
+<h2 class="doc-h2">Principio Guía: Enfoque en el Cliente Recurrente (High LTV)
 </h2>
 <p><b>Topline Thinking:</b>
 </p>
@@ -152,7 +89,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ul>
 <p>
 </p>
-<div class="doc-table-wrap"><table><tr><th><p>Métrica Clave
+<table><tr><th><p>Métrica Clave
 </p></th><th><p>Acción para el Equipo
 </p></th><th><p>Resultado Esperado
 </p></th></tr><tr><td><p><b>LTV (Lifetime Value)</b>
@@ -164,10 +101,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td></tr><tr><td><p><b>Autenticidad</b>
 </p></td><td><p>Cuidar la <b>Calidad e Ingredientes</b> (temperatura, presentación) como si fuera tu propio ramen.
 </p></td><td><p>El cliente percibe el valor y la justificación del precio.
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p><b>
 </b></p>
-<h3 class="doc-h3" id="misi-n-y-visi-n">Misión y Visión
+<h3 class="doc-h3">Misión y Visión
 </h3>
 <p><b>Misión:</b> Compartir la hospitalidad y riqueza culinaria de Asia a través de comida auténtica, servicio amable y una experiencia accesible para todos.
 </p>
@@ -201,7 +138,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p>
 <p><b>
 </b></p>
-<h3 class="doc-h3" id="elevator-pitch-de-nudo">Elevator pitch de Nudo
+<h3 class="doc-h3">Elevator pitch de Nudo
 </h3>
 <p>Ser parte de Nudo significa representar una marca joven, moderna y en expansión. Cada sonrisa, cada plato bien servido y cada bebida bien preparada reflejan quiénes somos y lo que queremos transmitir como equipo.
 </p>
@@ -215,14 +152,13 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p>
 <p>“Somos un concepto asiático de ramen y boba. Tenemos un menú compacto con 5 entradas y 6 platos fuertes, cada uno inspirado en un país de Asia. En bebidas, también tenemos boba y tés con sabores de varios países asiáticos.”
 </p>
-<div class="doc-backtop"><a href="#top">↑ Volver arriba</a></div>
-<h2 class="doc-h2" id="productos">Productos 
+<h2 class="doc-h2">Productos 
 </h2>
-<h3 class="doc-h3" id="bebidas">Bebidas 
+<h3 class="doc-h3">Bebidas 
 </h3>
 <p>
 </p>
-<h3 class="doc-h3" id="respuestas-frecuentes-para-bebidas">Respuestas Frecuentes para Bebidas
+<h3 class="doc-h3">Respuestas Frecuentes para Bebidas
 </h3>
 <p><b>Guía Operativa: Preguntas Frecuentes de Nudo
 </b></p>
@@ -261,7 +197,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ul>
 <p><b>¿De dónde vienen los tés que usamos?
 </b></p>
-<div class="doc-table-wrap"><table><tr><th><p><b>Tipo de té</b>
+<table><tr><th><p><b>Tipo de té</b>
 </p></th><th><p><b>Origen</b>
 </p></th></tr><tr><td><p>Té Jazmín
 </p></td><td><p>Taiwán
@@ -275,12 +211,12 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p>India
 </p></td></tr><tr><td><p>Matcha
 </p></td><td><p>Japón, Uji
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p>
 </p>
-<h3 class="doc-h3" id="entradas">Entradas 
+<h3 class="doc-h3">Entradas 
 </h3>
-<div class="doc-table-wrap"><table><tr><th><p><b>Platillo</b>
+<table><tr><th><p><b>Platillo</b>
 </p></th><th><p><b>Pitch corto</b>
 </p></th><th><p><b>Pitch largo</b>
 </p></th><th><p><b>Recomendaciones clave</b>
@@ -310,10 +246,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p>Trozos de pastel de arroz glutinoso cocidos y sazonados con una mezcla de carne de cerdo deshebrada, camarón seco, setas shiitake y cilantro, servidos con salsa picante de la casa. Un platillo reconfortante, suave por dentro y muy sabroso.
 </p></td><td><p><b>Muy recomendable para niños</b>: sugerir <b>salsa aparte</b>. Ideal para quienes no desean fideos o buscan una entrada completa.
 </p></td><td><p>Cerdo, Camarón / mariscos, Hongos, Cilantro, Gluten
-</p></td></tr></table></div>
-<h3 class="doc-h3" id="ramen">Ramen
+</p></td></tr></table>
+<h3 class="doc-h3">Ramen
 </h3>
-<div class="doc-table-wrap"><table><tr><th><p><b>Plato / Nivel de Picante / Fideos</b>
+<table><tr><th><p><b>Plato / Nivel de Picante / Fideos</b>
 </p></th><th><p><b>Pitch Corto</b>
 </p></th><th><p><b>Pitch Largo</b>
 </p></th><th><p><b>Recomendaciones Clave</b>
@@ -348,12 +284,12 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p>Descubre la intensidad del Biangbiang Mien, un plato estilo Xi’an sin caldo. Consiste en fideos anchos, gruesos y hechos de harina de trigo vegana, cubiertos con una potente salsa de aceite rojo y chiles secos. Es una pasta salteada intensa, auténtica y con un nivel de picante significativo. Es la opción ideal para quienes buscan sabores muy fuertes y picantes, y un plato más sustancioso que una sopa.
 </p></td><td><p>Amantes del picante y sabores intensos. <b>No lleva caldo</b> (es una pasta salteada).
 </p></td><td><p>Trigo, Soya (En salsa)
-</p></td></tr></table></div>
+</p></td></tr></table>
 <h3 class="doc-h3"><b>
 </b></h3>
-<h3 class="doc-h3" id="descripciones-para-fideos">Descripciones para Fideos 
+<h3 class="doc-h3">Descripciones para Fideos 
 </h3>
-<div class="doc-table-wrap"><table><tr><th><p><b>Fideos</b>
+<table><tr><th><p><b>Fideos</b>
 </p></th><th><p><b>Uso Principal</b>
 </p></th><th><p><b>Ingredientes Principales</b>
 </p></th><th><p><b>Gluten</b>
@@ -388,10 +324,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p>
 </p></td><td><p>“Son fideos elaborados con raíz de konjac, una planta asiática. No tienen gluten ni calorías, y su textura es más elástica y ligera. Son una excelente opción si el cliente busca algo más saludable o bajo en carbohidratos.”
 </p></td><td><p>Aclarar que <b>no es la opción tradicional</b>, pero puede ser un <b>sustituto sin gluten ni calorías</b> en casi cualquier plato.
-</p></td></tr></table></div>
-<h3 class="doc-h3" id="salsas">Salsas
+</p></td></tr></table>
+<h3 class="doc-h3">Salsas
 </h3>
-<div class="doc-table-wrap"><table><tr><th><p><b>Salsa</b>
+<table><tr><th><p><b>Salsa</b>
 </p></th><th><p><b>Descripción Corta</b>
 </p></th><th><p><b>Uso en Nudo</b>
 </p></th><th><p><b>Posibles Alérgenos</b>
@@ -411,14 +347,14 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p>Base de varios caldos y marinados (<i>Ramen de Res Taiwanés</i>, <i>Tonkotsu Japonés</i>, <i>Chashu</i>). También se puede ofrecer al cliente para resaltar el sabor umami.
 </p></td><td><p>Soya, Gluten (por el trigo fermentado)
 </p></td><td><p>Ideal para <b>realzar sabores sin agregar picante</b>. Ofrecer solo en pequeñas cantidades; es naturalmente salada.
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p>
 </p>
 <h3 class="doc-h3"><b>
 </b></h3>
-<h3 class="doc-h3" id="estrategia-de-recomendaci-n-seg-n-perfil-de-cliente">Estrategia de Recomendación según Perfil de Cliente
+<h3 class="doc-h3">Estrategia de Recomendación según Perfil de Cliente
 </h3>
-<div class="doc-table-wrap"><table><tr><th><p><b>Perfil del Cliente</b>
+<table><tr><th><p><b>Perfil del Cliente</b>
 </p></th><th><p><b>Qué Recomendar</b>
 </p></th><th><p><b>Frase Sugerida para Decir</b>
 </p></th><th><p><b>Nota Interna (Importante)</b>
@@ -470,11 +406,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p> <p>• Pastel de Arroz, Pepinillo Refresh, Edamame Picante
 </p></td><td><p>“Si prefieren algo sin caldo, los Biang Biang son ideales: fideos anchos con aceite rojo y mucha textura.”
 </p></td><td><p>Recalcar: <b>Biang Biang no tiene sopa</b>.
-</p></td></tr></table></div>
-<div class="doc-backtop"><a href="#top">↑ Volver arriba</a></div>
-<h2 class="doc-h2" id="servicio">Servicio
+</p></td></tr></table>
+<h2 class="doc-h2">Servicio
 </h2>
-<h3 class="doc-h3" id="manual-servicio">Manual Servicio
+<h3 class="doc-h3">Manual Servicio
 </h3>
 <p><b>1. Principios de servicio Nudo
 </b></p>
@@ -499,7 +434,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ul>
 <h3 class="doc-h3">
 </h3>
-<h3 class="doc-h3" id="secuencia-de-servicio">Secuencia de Servicio
+<h3 class="doc-h3">Secuencia de Servicio
 </h3>
 <p><b>Objetivo:</b> recibir, explicar, tomar orden correctamente, servir a tiempo, cobrar sin errores y dejar la mesa lista para la siguiente persona.
 </p>
@@ -514,26 +449,26 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p>
 <ul><li><b>Bienvenida (0–1 min):</b> saludo, pregunta el numero de invitados para asignar una mesa.
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“Bienvenidos a Nudo”
+<table><tr><th><p>“Bienvenidos a Nudo”
 </p> <p>
 </p> <p>“¿Cuantos son?”
-</p></th></tr></table></div>
+</p></th></tr></table>
 <ul><li><b>Asignación de mesa:</b> <u>Guiar, acompañar y acomodar</u> los invitados a su mesa. no señalar de lejos; preguntar por necesidades especiales. Al sentar, llevar cubito de cubiertos y porta palillos. Si no hay menú físico disponible, indicar menú por QR.
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“Soy [NOMBRE], ahorita regreso con la carta” 
-</p></th></tr></table></div>
+<table><tr><th><p>“Soy [NOMBRE], ahorita regreso con la carta” 
+</p></th></tr></table>
 <ul><li><b>Detectar si es primera visita:</b> 
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“¿Es la primera vez que nos visitan?” 
+<table><tr><th><p>“¿Es la primera vez que nos visitan?” 
 </p> <p>Si sí → usar pitch de Nudo + 1 recomendación concreta.
 </p></th><th><p><b>Versión 15 s:</b> “Bienvenidos a Nudo. Somos un concepto asiático de ramen y boba. Tenemos un menú compacto con 5 entradas y 6 platos fuertes, cada uno inspirado en un país de Asia. En bebidas, también tenemos boba y tés con sabores de varios países asiáticos.”
 </p> <p><b>Versión 30 s:</b> “Bienvenidos a Nudo. Somos un restaurante asiático enfocado en dos cosas: ramen/noodles y boba tea. Nuestro menú es intencionalmente corto: 5 entradas y 6 platos fuertes, y cada fuerte representa un país de Asia, así pueden probar sabores diferentes en una sola visita. En bebidas tenemos boba y tés representativos de varias partes de Asia, además de los clásicos, para que siempre haya algo conocido y algo para explorar.”
-</p></th></tr></table></div>
+</p></th></tr></table>
 <p><b>
 </b></p>
 <ul><li><b>Primera oferta (Bebidas):</b> 
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“Antes de que veamos los platos, ¿les traigo algo para tomar?
+<table><tr><th><p>“Antes de que veamos los platos, ¿les traigo algo para tomar?
 </p> <p>Aquí tenemos nuestras <b>bebidas estilo Asia</b>.
 </p> <p>¿Prefieren <b>algo más refrescante</b> como nuestros fruity ice tea o slush,
 </p> <p>o <b>algo con leche </b>como chai o thai rojo?”
@@ -552,10 +487,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li> <li>Okinawa Brown Sugar Tea
 </li> <li>Okinawa Brown Sugar
 </li> <li>Taiwanese Classic
-</li></th></tr></table></div>
+</li></th></tr></table>
 <p><b>Segunda oferta (Entradas):</b> 
 </p>
-<div class="doc-table-wrap"><table><tr><th><p>“¿Prefieren algo <b>ligero</b> como Pepinillo Refresh y Edamame Picante, o algo <b>más sustancioso</b> como Wontons y Pollo Frito para compartir?”
+<table><tr><th><p>“¿Prefieren algo <b>ligero</b> como Pepinillo Refresh y Edamame Picante, o algo <b>más sustancioso</b> como Wontons y Pollo Frito para compartir?”
 </p> <p>
 </p> <p>“Para la mesa recomiendo pedir <b>una entrada más completo </b>mientras llegan los ramen. Puede ser <b>Wontons</b> y <b>Pollo Frito</b> para compartir,o algo más <b>ligero</b> como Pepinillo y Edamame.
 </p> <p>¿Con cuál empezamos?”
@@ -567,18 +502,18 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </b></p> <li><b>Wontons en Salsa Roja</b> — suaves, sabrosos, se pueden pedir con salsa aparte
 </li> <li><b>Pollo Frito Lemongrass</b> — crujiente y aromático, ideal para la mesa
 </li> <li><b>Pastel de Arroz
-</b></li></th></tr></table></div>
+</b></li></th></tr></table>
 <ul><li><b>Degustación de caldos (opcional): 
 </b></li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“Perfecto, mientras se preparan sus entradas, ¿quieren probar una <b>degustación de nuestros caldos</b>? Es una forma sencilla de descubrir cuál les gusta más <b>antes de pedir el ramen completo</b>.”<b>
-</b></p></th></tr></table></div>
+<table><tr><th><p>“Perfecto, mientras se preparan sus entradas, ¿quieren probar una <b>degustación de nuestros caldos</b>? Es una forma sencilla de descubrir cuál les gusta más <b>antes de pedir el ramen completo</b>.”<b>
+</b></p></th></tr></table>
 <ul><li><b>Toma de orden (3–5 min):</b> usar comanda, <u>repetir orden completa</u> y aclarar modificaciones.
 </li><li><b>Captura en sistema / comanda:</b> usar el POS o comanda móvil.
 </li><li><b>Entrega de bebidas y estar al pendiente:</b> entregar y observar. Ir un paso adelante: traer salsa si la mencionan, cambiar palillos si se cayeron, rellenar agua sin que lo pidan.
 </li><li><b>Entrega de alimentos:</b> primero calientes, luego fríos; confirmar condimentos.
 </li><li><b>Chequeo (2–3 min):</b> 
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“¿Cómo están los ramen / el caldo / la bebida?” Si algo no está bien → script de recuperación.
+<table><tr><th><p>“¿Cómo están los ramen / el caldo / la bebida?” Si algo no está bien → script de recuperación.
 </p></th><th><p><b>Línea 1 (reconocer):</b> “Gracias por decírmelo / gracias por avisarnos, no es lo que queremos que pase.”
 </p> <p><b>Línea 2 (solución):</b> “Se lo puedo cambiar ahora mismo / se lo puedo rehacer / se lo puedo descontar de la cuenta.”
 </p> <p>Este formato sirve porque baja la molestia del cliente primero y luego da una salida clara.
@@ -587,22 +522,22 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li> <li><b>Tardó mucho:</b> “Gracias por avisarme, el tiempo sí se nos fue.” → “Le ofrezco cambiarle a algo que salga más rápido / ajustar la cuenta.”
 </li> <li><b>Bebida no era lo que esperaba:</b> “Gracias por decirlo, la boba debe salir igual siempre.” → “Se la puedo rehacer con otro sabor sin costo.”
 </li> <p><b>Reglas:</b> agradecer primero, nombrar el error, ofrecer <b>solo 1</b> solución concreta, y escalar al capitán si la mesa sigue molesta o si es un grupo grande.
-</p></th></tr></table></div>
+</p></th></tr></table>
 <ul><li><b>Cuenta y cobro:</b> presentar cuenta, confirmar forma de pago, cobrar ahí mismo; revisar cambio y ticket.
 </li><li><b>Feedback y reseña (a criterio):</b> 
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>“¿Les gustó la comida y el servicio?” Si sí: “¿Nos ayudarían con una reseña en Google Maps? Le ayuda a más gente a encontrarnos como <i>Nudo – ramen y boba</i>.” Alternativa: “Si les gustó, una reseña rápida en Google nos ayuda muchísimo.” Si no: preguntar motivo, disculparse y decir que esperamos verlos de nuevo para hacerlo mejor.
-</p></th></tr></table></div>
+<table><tr><th><p>“¿Les gustó la comida y el servicio?” Si sí: “¿Nos ayudarían con una reseña en Google Maps? Le ayuda a más gente a encontrarnos como <i>Nudo – ramen y boba</i>.” Alternativa: “Si les gustó, una reseña rápida en Google nos ayuda muchísimo.” Si no: preguntar motivo, disculparse y decir que esperamos verlos de nuevo para hacerlo mejor.
+</p></th></tr></table>
 <ul><li><b>Despedida y montaje:</b> despedir, limpiar y resetear mesa para que quede en estándar.
 </li></ul>
-<h3 class="doc-h3" id="uso-de-vasos-para-llevar-para-consumo-en-el-salon">Uso de vasos para llevar para consumo en el salon
+<h3 class="doc-h3">Uso de vasos para llevar para consumo en el salon
 </h3>
 <p><b>Normas de servicio de bebidas para llevar:
 </b></p>
 <ul><li><b>Pedidos después de las 9:00 p.m.:</b> Cualquier orden recibida después de las 9:00 p.m. se servirá en vaso para llevar.
 </li><li><b>Segundos vasos de</b><b> </b><b>boba:</b> Si los clientes en mesa ya finalizaron su comida y solicitan un segundo vaso de boba, este se servirá en vaso para llevar.
 </li></ul>
-<h3 class="doc-h3" id="lista-de-espera">Lista de espera
+<h3 class="doc-h3">Lista de espera
 </h3>
 <p><b>Activación de la Lista de Espera:
 </b></p>
@@ -630,7 +565,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ul>
 <h2 class="doc-h2">
 </h2>
-<h3 class="doc-h3" id="recuperaci-n-de-servico-por-espera">Recuperación de servico por espera
+<h3 class="doc-h3">Recuperación de servico por espera
 </h3>
 <p>Si la cocina está llena y se estima que la espera para el primer plato o entrada será superior a <b>25 minutos</b>, el mesero deberá seguir el siguiente protocolo:
 </p>
@@ -642,7 +577,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ol>
 <p>
 </p>
-<div class="doc-table-wrap"><table><tr><th><p>Cortesía sugerida
+<table><tr><th><p>Cortesía sugerida
 </p></th><th><p>Consideración de Operación
 </p></th><th><p>Descripción para el cliente (Sugerencia)
 </p></th></tr><tr><td><p><b>Pepinillo Refresh</b>
@@ -651,14 +586,14 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td></tr><tr><td><p><b>Juego de Té Caliente</b> (menos costoso para Nudo)
 </p></td><td><p>Preferir cuando la <b>cocina</b> esté más ocupada que la barra, o si el clima lo amerita.
 </p></td><td><p>&quot;Disculpe la espera, la cocina está al máximo. Queremos regalarles un <b>Juego de Té Caliente</b> de la casa para que disfruten mientras llegan sus platos.&quot;
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p>
 </p>
 <p><b>Objetivo:</b> La cortesía debe ser un acto de hospitalidad <b>proactivo</b>, sin que el cliente tenga que solicitarla, para transformar una posible queja en una experiencia de servicio positiva.
 </p>
 <h3 class="doc-h3">
 </h3>
-<h3 class="doc-h3" id="recuperaci-n-de-servicio-por-error-de-orden">Recuperación de Servicio por error de orden
+<h3 class="doc-h3">Recuperación de Servicio por error de orden
 </h3>
 <p>En caso de que un mesero cometa un error en la toma de orden o haya un olvido que resulte en el envío de un platillo incorrecto o un tiempo de espera prolongado, el Capitán o Gerente debe tomar la iniciativa inmediatamente para recuperar el servicio y asegurar la satisfacción del cliente.
 </p>
@@ -673,7 +608,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li></ol>
 <p>
 </p>
-<div class="doc-table-wrap"><table><tr><th><p>Mentalidad de Recuperación
+<table><tr><th><p>Mentalidad de Recuperación
 </p></th><th><p>Acción Correcta
 </p></th></tr><tr><td><p><b>Objetivo</b>
 </p></td><td><p>Asegurar que el cliente pruebe un producto nuevo y genere un vínculo positivo con la marca.
@@ -681,14 +616,14 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p><b>Asegurar Cliente Recurrente (High LTV)</b>.
 </p></td></tr><tr><td><p><b>Enfoque</b>
 </p></td><td><p>No descontar ítems ya ordenados, sino regalar un <b>ítem nuevo/extra</b> para mejorar la experiencia.
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p>
 </p>
 <p><b>Importante:</b> La recuperación de servicio es una inversión para asegurar la lealtad del cliente. Un cliente que recibe una respuesta proactiva y generosa ante un error es más propenso a regresar. La meta principal es asegurar un cliente recurrente.
 </p>
 <h2 class="doc-h2">
 </h2>
-<h3 class="doc-h3" id="punto-de-venta">Punto de Venta
+<h3 class="doc-h3">Punto de Venta
 </h3>
 <p><b>Guía para manejar el Punto de Venta (POS)
 </b></p>
@@ -718,7 +653,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </li><li><b>Tom Kha Tailandés y Laksa Singapurense</b> deben enviarse <b>SIEMPRE</b> con una selección de proteína: <b>Mixto, Camarón, Pollo, Vegetariano o Vegano.</b>
 </li><li><b>Uso Correcto de Extras:</b> Para evitar duplicidades y costos incorrectos, use el botón específico para el extra.
 </li></ul>
-<div class="doc-table-wrap"><table><tr><th><p>Situación
+<table><tr><th><p>Situación
 </p></th><th><p>Acción Correcta en POS
 </p></th><th><p>Verificación de Costo
 </p></th></tr><tr><td><p>El cliente pide <b>Camarón</b> en su Laksa.
@@ -732,15 +667,15 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p> <p>
 </p> <p>No existe 75% (agregando 25% y 50%)
 </p></td><td><p>
-</p></td></tr></table></div>
+</p></td></tr></table>
 <ul><li><b>Verificación de Costo:</b> <b>Siempre revise el precio final del plato en la pantalla del POS</b> después de agregar modificadores para asegurarse de que el cargo por extras sea correcto.
 </li><li><b>Comentarios de Cocina:</b> Use la función de comentarios/notas solo para solicitudes especiales que no tengan un botón predefinido (ej. &quot;caldo muy caliente&quot;, &quot;salsa a un lado, porción doble&quot;).
 </li></ul>
-<h3 class="doc-h3" id="m-todos-de-pago-en-nudo">Métodos de Pago en Nudo
+<h3 class="doc-h3">Métodos de Pago en Nudo
 </h3>
 <p><b>Roma Norte
 </b></p>
-<div class="doc-table-wrap"><table><tr><th><p><b>Ubicación</b>
+<table><tr><th><p><b>Ubicación</b>
 </p></th><th><p><b>Días</b>
 </p></th><th><p><b>Método de Pago</b>
 </p></th></tr><tr><td><p><b>Salón</b>
@@ -752,14 +687,14 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td></tr><tr><td><p><b>Mostrador para llevar</b>
 </p></td><td><p>Todos los días
 </p></td><td><p>Netpay
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p><b>
 </b></p>
 <p><b>Del Valle</b>
 </p>
 <p><b>
 </b></p>
-<div class="doc-table-wrap"><table><tr><th><p><b>Ubicación</b>
+<table><tr><th><p><b>Ubicación</b>
 </p></th><th><p><b>Días</b>
 </p></th><th><p><b>Método de Pago</b>
 </p></th></tr><tr><td><p><b>Salón</b>
@@ -771,10 +706,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td></tr><tr><td><p><b>Mostrador para llevar</b>
 </p></td><td><p>Todos los días
 </p></td><td><p>GetNet
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p>
 </p>
-<h3 class="doc-h3" id="pol-tica-de-reservaciones">Política de Reservaciones 
+<h3 class="doc-h3">Política de Reservaciones 
 </h3>
 <p><b>1. Canales de reservación
 </b></p>
@@ -814,7 +749,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </h3>
 <h3 class="doc-h3">
 </h3>
-<h3 class="doc-h3" id="recibiendo-entregas">Recibiendo Entregas
+<h3 class="doc-h3">Recibiendo Entregas
 </h3>
 <p>El proceso de recepción de productos es crítico para asegurar la calidad y el control de inventario. El personal responsable debe seguir estos pasos al recibir cualquier tipo de entrega:
 </p>
@@ -831,10 +766,9 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </b></li><li><b>Comunicación Interna:
 </b></li><li>Cada vez que se reciba una entrega (de cualquier proveedor), se debe notificar inmediatamente en el grupo de WhatsApp &quot;Nudo Plantilla&quot; con una foto.
 </li></ol>
-<div class="doc-backtop"><a href="#top">↑ Volver arriba</a></div>
-<h2 class="doc-h2" id="contactos-de-provedores-de-servicios-claves">Contactos de provedores de servicios claves
+<h2 class="doc-h2">Contactos de provedores de servicios claves
 </h2>
-<div class="doc-table-wrap"><table><tr><th><p>Area
+<table><tr><th><p>Area
 </p></th><th><p>Contacto
 </p></th><th><p>Comentarios
 </p></th></tr><tr><td><p>Electrista
@@ -914,42 +848,15 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
 </p></td><td><p>Luis Alberto/Daniela 
 </p> <p>+52 1 55 6787 9641
 </p></td><td><p>
-</p></td></tr></table></div>
+</p></td></tr></table>
 <p>
 </p>
-<div class="doc-backtop"><a href="#top">↑ Volver arriba</a></div>
-<h2 class="doc-h2" id="sugerencias-y-quejas">Sugerencias y Quejas
+<h2 class="doc-h2">Sugerencias y Quejas
 </h2>
 <ul><li>Las sugerencias pueden comunicarse al gerente, al capitán o directamente en el grupo de WhatsApp.
 </li><li>Para quejas, observaciones o comentarios, puedes contactar a Ben directamente al 55-3510-5507.
 </li></ul>
     <div class="doc-meta">Documento generado automáticamente desde Google Docs.</div>
   </div>
-
-  <button class="to-top" id="toTop" aria-label="Volver arriba">↑</button>
-  <script>
-  (function(){
-    var btn = document.getElementById('toTop');
-    if (!btn) return;
-    window.addEventListener('scroll', function(){
-      if (window.scrollY > 300) btn.classList.add('show');
-      else btn.classList.remove('show');
-    });
-    btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
-  })();
-  </script>
-
-  <div class="progress-bar" id="progressBar"></div>
-  <script>
-  (function(){
-    var bar = document.getElementById('progressBar');
-    if (!bar) return;
-    window.addEventListener('scroll', function(){
-      var h = document.documentElement;
-      var scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
-      bar.style.width = scrolled + '%';
-    });
-  })();
-  </script>
 </body>
 </html>
