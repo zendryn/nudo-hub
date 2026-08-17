@@ -63,6 +63,10 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
   .doc-collapse summary::after { content:'▸'; transition:transform 0.2s; color:#2f3a2f; }
   .doc-collapse[open] summary::after { transform:rotate(90deg); }
   .doc-collapse .collapse-body { padding:12px 14px; border:1px solid #e3e0d8; border-top:none; border-radius:0 0 8px 8px; background:#fff; }
+
+  .doc-backtop { display:block; text-align:right; font-size:0.8rem; margin:18px 0 4px; }
+  .doc-backtop a { color:#6b6b6b; text-decoration:none; font-weight:500; }
+  .doc-backtop a:hover { color:#2f3a2f; text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -70,7 +74,7 @@ header a { color:#fff; text-decoration:none; opacity:0.9; font-size:0.9rem; }
     <h1>Reglas y Políticas de Nudo</h1>
     <p style="margin-top:4px;"><a href="/nudo-hub/">← Volver a Nudo Hub</a></p>
   </header>
-  <div class="doc-page">
+  <div class="doc-page" id="top">
 <div class="doc-toc">
 <div class="doc-toc-title">Contenido</div>
 <ul>
