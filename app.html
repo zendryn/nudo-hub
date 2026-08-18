@@ -152,6 +152,18 @@
   .sched-frame { width: 100%; border: 1px solid var(--border); border-radius: 12px; min-height: 400px; background: #fff; }
 
   footer { text-align: center; padding: 20px; color: var(--muted); font-size: 0.8rem; }
+  /* Reviews slider (pulled from the hub) */
+  .rv-card { padding: 0; overflow: hidden; }
+  .rv-viewport { overflow: hidden; }
+  .rv-slide { display: none; padding: 18px 18px 6px; }
+  .rv-slide.active { display: block; }
+  .rv-meta { font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; }
+  .rv-text { font-size: 0.95rem; line-height: 1.5; color: var(--ink); }
+  .rv-author { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
+  .rv-author a { color: var(--accent); text-decoration: none; }
+  .rv-dots { display: flex; justify-content: center; gap: 6px; padding: 12px 0 14px; }
+  .rv-dot { width: 7px; height: 7px; border-radius: 50%; background: #d5d2c8; transition: background 0.2s; cursor: pointer; }
+  .rv-dot.active { background: var(--accent); }
   .hidden { display: none !important; }
 </style>
 </head>
@@ -245,6 +257,10 @@
             <div class="arrow">›</div>
           </a>
         </div>
+
+        <!-- Live sections pulled from the hub (Desempeño + Opiniones) so the
+             app's bottom matches the public hub automatically. -->
+        <div id="hub-live-sections"></div>
       </div>
 
       <!-- GUIDE VIEW (in-app, so back stays inside the app) -->
@@ -377,7 +393,7 @@
   function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
-  const APP_VERSION = "v0.9";
+  const APP_VERSION = "v0.10";
   document.getElementById('ver').textContent = APP_VERSION;
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
@@ -719,6 +735,29 @@
     const { data: { session } } = await supabase.auth.getSession();
     if (session) { showApp(); loadUser(); }
     else showLogin();
+  })();
+
+  // Pull the hub's live sections (Desempeño + Opiniones) so the app's bottom
+  // matches the public hub automatically. Fetches index.html and extracts the
+  // blocks between the NUDO_PERF and NUDO_REVIEWS markers.
+  (function loadHubLiveSections() {
+    const target = $('hub-live-sections');
+    if (!target) return;
+    fetch('/nudo-hub/index.html')
+      .then(r => r.text())
+      .then(html => {
+        const perf = (html.match(/<!-- NUDO_PERF_START -->([\s\S]*?)<!-- NUDO_PERF_END -->/) || [])[1] || '';
+        const revs = (html.match(/<!-- NUDO_REVIEWS_START -->([\s\S]*?)<!-- NUDO_REVIEWS_END -->/) || [])[1] || '';
+        // The reviews block carries an inline <script> that won't auto-run via
+        // innerHTML — strip it out, inject the HTML, then re-execute the script.
+        const scriptMatch = revs.match(/<script>([\s\S]*?)<\/script>/);
+        const revsHtml = revs.replace(/<script>[\s\S]*?<\/script>/, '');
+        target.innerHTML = perf + revsHtml;
+        if (scriptMatch) {
+          try { new Function(scriptMatch[1])(); } catch (e) { /* slider init failure — non-fatal */ }
+        }
+      })
+      .catch(() => { /* offline / hub unreachable — leave empty */ });
   })();
 
   // PWA: register service worker
