@@ -315,26 +315,8 @@
         <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card" id="card-mantenimiento">
           <h2>🔧 Solicitud de Mantenimiento</h2>
-          <div class="field"><label>Sucursal</label>
-            <select id="m-sucursal"><option>Roma Norte</option><option>Del Valle</option><option>Bodega</option></select>
-          </div>
-          <div class="field"><label>Área</label>
-            <select id="m-area"><option>Cocina</option><option>Barra</option><option>Comedor</option><option>Terraza</option><option>Baños</option><option>Otro</option></select>
-          </div>
-          <div class="field"><label>¿Qué se dañó?</label><textarea id="m-desc" placeholder="Describe el problema"></textarea></div>
-          <div class="field"><label>📷 Fotos del problema</label>
-            <p class="field-hint">Toma una o más fotos de la cámara. (Hasta 4)</p>
-            <input type="file" id="m-photos" accept="image/*" multiple>
-            <div class="photo-preview" id="m-photo-preview"></div>
-          </div>
-          <div class="field"><label>Prioridad</label>
-            <div class="radio-group">
-              <label><input type="radio" name="m-prio" value="Normal"><span>Normal</span></label>
-              <label><input type="radio" name="m-prio" value="Urgente"><span>🔴 Urgente</span></label>
-            </div>
-          </div>
-          <button class="btn" id="m-submit">Enviar solicitud</button>
-          <div class="msg hidden" id="m-msg"></div>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Reporta problemas o averías. Se abre en una pestaña nueva.</p>
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSd5j_I_g19rR6oCoX69ylOO2tfabzEufmXyZSt9w2eAqj65Rg/viewform" target="_blank" rel="noopener" style="display:block;text-align:center;">Abrir Solicitud de Mantenimiento</a>
         </div>
       </div>
 
@@ -342,23 +324,8 @@
         <button class="back" data-back><span class="chev">‹</span> Volver</button>
         <div class="form-card" id="card-compras">
           <h2>🛒 Solicitud de Compras</h2>
-          <div class="field"><label>Sucursal</label>
-            <select id="c-sucursal"><option>Roma Norte</option><option>Del Valle</option><option>Bodega</option></select>
-          </div>
-          <div class="field"><label>¿Qué necesitas?</label><textarea id="c-item" placeholder="Describe el artículo o insumo"></textarea></div>
-          <div class="field"><label>Proveedor (si lo sabes)</label><input type="text" id="c-vendor"></div>
-          <div class="field"><label>🔗 Link del producto (Amazon o MercadoLibre)</label>
-            <input type="url" id="c-link" placeholder="https://www.amazon.com.mx/... o https://articulo.mercadolibre.com.mx/...">
-            <p class="field-hint">Pega aquí el enlace directo del producto que necesitas. En MercadoLibre, elige vendedores <b>nacionales</b> (no internacionales) para evitar demoras.</p>
-          </div>
-          <div class="field"><label>Monto estimado (MXN)</label><input type="number" id="c-amount" inputmode="numeric"></div>
-          <div class="field"><label>📷 Fotos del artículo</label>
-            <p class="field-hint">Toma una o más fotos de la cámara. (Hasta 4)</p>
-            <input type="file" id="c-photos" accept="image/*" multiple>
-            <div class="photo-preview" id="c-photo-preview"></div>
-          </div>
-          <button class="btn" id="c-submit">Enviar solicitud</button>
-          <div class="msg hidden" id="c-msg"></div>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:14px;">Solicita compras o insumos. Se abre en una pestaña nueva.</p>
+          <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdRgq_aQImR3Qcjfv_giYzOU6_NfbJSm0IDnR-A55ERAu4ilg/viewform" target="_blank" rel="noopener" style="display:block;text-align:center;">Abrir Solicitud de Compras</a>
         </div>
       </div>
 
@@ -393,7 +360,7 @@
   function initApp(){
   const SUPABASE_URL = "https://dnzvkppytzjsipwfhafk.supabase.co";
   const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenZrcHB5dHpqc2lwd2ZoYWZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5MjkwNzQsImV4cCI6MjEwMjUwNTA3NH0.0EpnyeWxf5kaloZZUuitg_h0JHXT0OpBPSR32FNnXoM";
-  const APP_VERSION = "v0.10";
+  const APP_VERSION = "v0.11";
   document.getElementById('ver').textContent = APP_VERSION;
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 
@@ -545,28 +512,7 @@
     card.querySelectorAll('input[type="checkbox"]').forEach(i => i.checked = false);
     card.querySelectorAll('input[type="radio"]').forEach(i => i.checked = false);
     card.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
-    // clear photo state (shared helper arrays)
-    if (cardId === 'mantenimiento') { mPhotos.length = 0; renderPhotoPreview('m-photo-preview', mPhotos); }
-    if (cardId === 'compras') { cPhotos.length = 0; renderPhotoPreview('c-photo-preview', cPhotos); }
-    $('b-submit').disabled = $('m-submit').disabled = $('c-submit').disabled = false;
-  }
-
-  // Re-render a photo preview box from its array (used by resetForm)
-  function renderPhotoPreview(previewId, photos) {
-    const preview = $(previewId);
-    if (!preview) return;
-    preview.innerHTML = '';
-    photos.forEach((p, i) => {
-      const wrap = document.createElement('div');
-      wrap.className = 'ph-remove';
-      const img = document.createElement('img');
-      img.src = p.dataUrl;
-      const x = document.createElement('button');
-      x.className = 'ph-x'; x.textContent = '✕'; x.setAttribute('aria-label', 'Quitar foto');
-      x.addEventListener('click', () => { photos.splice(i, 1); renderPhotoPreview(previewId, photos); });
-      wrap.appendChild(img); wrap.appendChild(x);
-      preview.appendChild(wrap);
-    });
+    $('b-submit').disabled = false;
   }
 
   document.querySelectorAll('[data-form]').forEach(a => {
@@ -632,98 +578,6 @@
       clearMsg($('b-msg'));
       goHome();
     }, 1200);
-  });
-
-  // ---- PHOTO CAPTURE (shared by mantenimiento + compras) ----
-  // Each form keeps its own array of {file, dataUrl}. A generic helper wires
-  // the file input -> preview -> remove flow. No `capture` attribute on the
-  // inputs (it broke the camera on iOS with `multiple`); the native picker
-  // opens camera + gallery reliably.
-  function setupPhotoCapture(inputId, previewId, maxPhotos, msgEl) {
-    const input = $(inputId);
-    const preview = $(previewId);
-    if (!input || !preview) return [];
-    const photos = [];
-    function render() {
-      preview.innerHTML = '';
-      photos.forEach((p, i) => {
-        const wrap = document.createElement('div');
-        wrap.className = 'ph-remove';
-        const img = document.createElement('img');
-        img.src = p.dataUrl;
-        const x = document.createElement('button');
-        x.className = 'ph-x'; x.textContent = '✕'; x.setAttribute('aria-label', 'Quitar foto');
-        x.addEventListener('click', () => { photos.splice(i, 1); render(); });
-        wrap.appendChild(img); wrap.appendChild(x);
-        preview.appendChild(wrap);
-      });
-    }
-    input.addEventListener('change', e => {
-      const files = Array.from(e.target.files || []);
-      const room = maxPhotos - photos.length;
-      files.slice(0, room).forEach(f => {
-        const reader = new FileReader();
-        reader.onload = ev => { photos.push({ file: f, dataUrl: ev.target.result }); render(); };
-        reader.readAsDataURL(f);
-      });
-      if (files.length > room && msgEl) showMsg(msgEl, `Máximo ${maxPhotos} fotos.`, 'info');
-      input.value = '';
-    });
-    return photos;
-  }
-
-  async function uploadPhotos(photos, bucket, prefix) {
-    const urls = [];
-    for (const p of photos) {
-      const name = `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
-      const blob = await (await fetch(p.dataUrl)).blob();
-      const { error: upErr } = await supabase.storage.from(bucket).upload(name, blob, { contentType: 'image/jpeg' });
-      if (!upErr) urls.push(supabase.storage.from(bucket).getPublicUrl(name).data.publicUrl);
-    }
-    return urls;
-  }
-
-  const mPhotos = setupPhotoCapture('m-photos', 'm-photo-preview', 4, $('m-msg'));
-  const cPhotos = setupPhotoCapture('c-photos', 'c-photo-preview', 4, $('c-msg'));
-
-  $('m-submit').addEventListener('click', async () => {
-    if (!$('m-desc').value.trim()) { showMsg($('m-msg'), 'Describe el problema', 'err'); return; }
-    let user; try { user = await requireUser(); } catch(e) { return; }
-    $('m-submit').disabled = true;
-    showMsg($('m-msg'), 'Subiendo solicitud...', 'info');
-    const urls = await uploadPhotos(mPhotos, 'maintenance-photos', 'maint');
-    const { error } = await supabase.from('maintenance_requests').insert({
-      submitted_by: user.id,
-      branch: $('m-sucursal').value,
-      area: $('m-area').value,
-      description: $('m-desc').value,
-      priority: (document.querySelector('input[name="m-prio"]:checked') || {}).value || 'Normal',
-      photo_urls: urls
-    });
-    if (error) { showMsg($('m-msg'), 'Error: ' + error.message, 'err'); $('m-submit').disabled = false; return; }
-    $('m-msg').textContent = '✅ Solicitud enviada'; $('m-msg').className = 'msg ok'; $('m-msg').classList.remove('hidden');
-    setTimeout(() => { resetForm('mantenimiento'); clearMsg($('m-msg')); goHome(); }, 1200);
-  });
-
-  // ---- COMPRAS (with photo capture) ----
-  $('c-submit').addEventListener('click', async () => {
-    if (!$('c-item').value.trim()) { showMsg($('c-msg'), 'Describe lo que necesitas', 'err'); return; }
-    let user; try { user = await requireUser(); } catch(e) { return; }
-    $('c-submit').disabled = true;
-    showMsg($('c-msg'), 'Subiendo solicitud...', 'info');
-    const urls = await uploadPhotos(cPhotos, 'maintenance-photos', 'compra');
-    const { error } = await supabase.from('purchases').insert({
-      submitted_by: user.id,
-      branch: $('c-sucursal').value,
-      item: $('c-item').value,
-      vendor: $('c-vendor').value,
-      link: $('c-link').value.trim(),
-      amount: $('c-amount').value ? parseFloat($('c-amount').value) : null,
-      photo_urls: urls
-    });
-    if (error) { showMsg($('c-msg'), 'Error: ' + error.message, 'err'); $('c-submit').disabled = false; return; }
-    $('c-msg').textContent = '✅ Solicitud enviada'; $('c-msg').className = 'msg ok'; $('c-msg').classList.remove('hidden');
-    setTimeout(() => { resetForm('compras'); clearMsg($('c-msg')); goHome(); }, 1200);
   });
 
   // ---- BUZON ----
